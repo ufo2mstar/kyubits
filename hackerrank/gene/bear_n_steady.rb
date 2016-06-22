@@ -46,23 +46,27 @@ end
 
 def matrix gene
   converged = false
-  last_str_len = 0
+  last_str_len = 0; sub_str_len = 0
+  conv_ary = []; sub_gene = []
   until converged do
     gene_hsh = tag_gene(gene, "count")
     n = gene.length # gene_length
     max_n = n/4
-    puts "Gene:\ttots\trcount\tlcount"
+    puts "Max = #{max_grp = max_back gene}"
+    puts "Gene:\ttots\tmax_pos\tlast_pos"
     gene_hsh.each { |c, gene_ary|
       tots =gene_ary.max
-      lcount=gene_ary.rindex(tots)
-      rcount=gene_ary.rindex(max_n)||lcount.to_s.gsub(/\d/, '-')
-      puts "#{c}\t:\t#{tots}\t#{rcount}\t#{lcount}"
-      sub_str_len = sub_search gene
+      last_pos=gene_ary.rindex(tots)
+      max_pos=gene_ary.rindex(max_n)||last_pos.to_s.gsub(/\d/, '-')
+      puts "#{c}\t:\t#{tots}\t#{max_pos}\t#{last_pos}"
+      sub_gene = gene[max_pos, last_pos] if max_grp[0] == c
     }
+    puts sub_str_len = sub_search(gene)
     converged = last_str_len == sub_str_len
+    conv_ary << last_str_len
     last_str_len = sub_str_len
+    gene = sub_gene
   end
-
 end
 
 puts score gene

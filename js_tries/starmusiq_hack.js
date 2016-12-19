@@ -150,3 +150,4 @@ do{function(array,i){
 
 // why not
 
+// Dangit! Closures was a whole thing you needed to have known!!

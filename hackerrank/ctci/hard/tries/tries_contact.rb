@@ -95,26 +95,75 @@
 # puts CONTACT_LIST
 
 
-
-@num = 6
-@inp = [
-    'add hack',
-    'add ha',
-    'add hacker',
-    'find hak',
-    'find ha',
-    'find hacke'
-
-]
-
-# File.open('data/tries/input12.txt') do |f|
-#   @num = f.readline.to_i
-#   @inp = f.readlines
+#
+# @num = 6
+# @inp = [
+#     'add hack',
+#     'add ha',
+#     'add hacker',
+#     'find hak',
+#     'find ha',
+#     'find hacke'
+#
+# ]
+#
+# # File.open('data/tries/input12.txt') do |f|
+# #   @num = f.readline.to_i
+# #   @inp = f.readlines
+# # end
+#
+# class Trie
+#   attr_accessor :val, :children, :key
+#   def initialize key='root'
+#     @key = key
+#     @val = 0
+#     @children = {}
+#   end
+#
+#   def build(name)
+#     # puts "storing #{name}"
+#     name.chars.inject(self) do |trie, char|
+#       # puts " in #{trie.key} - val = #{trie.val}"
+#       next_trie = trie.children[char] || (trie.children[char]= Trie.new(char))
+#       next_trie.val += 1
+#       next_trie
+#     end
+#   end
+#
+#   def search(name)
+#     # puts "searching for #{name}"
+#     final_node = name.chars.inject(self) do |trie, char|
+#       return 0 unless trie.children[char]
+#       trie.children[char]
+#     end
+#     final_node.val
+#   end
 # end
+#
+# CONTACT_LIST = Trie.new
+#
+# for a0 in (0..@num-1)
+#   op,contact = @inp[a0].split ' '
+#
+#
+#   def add name
+#     CONTACT_LIST.build name
+#   end
+#
+#   def find partial
+#     puts CONTACT_LIST.search partial
+#   end
+#
+#   send(op,contact)
+# end
+#
+# puts CONTACT_LIST.inspect
+
+#!/bin/ruby
 
 class Trie
   attr_accessor :val, :children, :key
-  def initialize key='root'
+  def initialize key='base'
     @key = key
     @val = 0
     @children = {}
@@ -124,6 +173,7 @@ class Trie
     # puts "storing #{name}"
     name.chars.inject(self) do |trie, char|
       # puts " in #{trie.key} - val = #{trie.val}"
+      # trie.val = trie.val + 1
       next_trie = trie.children[char] || (trie.children[char]= Trie.new(char))
       next_trie.val += 1
       next_trie
@@ -142,9 +192,9 @@ end
 
 CONTACT_LIST = Trie.new
 
-for a0 in (0..@num-1)
-  op,contact = @inp[a0].split ' '
-
+n = gets.strip.to_i
+for a0 in (0..n-1)
+  op,contact = gets.strip.split(' ')
 
   def add name
     CONTACT_LIST.build name
@@ -156,5 +206,3 @@ for a0 in (0..@num-1)
 
   send(op,contact)
 end
-
-puts CONTACT_LIST.inspect

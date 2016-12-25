@@ -8,6 +8,7 @@ class HackerRankLoad
 
   def run
 puts @code,@input
+
   end
 end
 

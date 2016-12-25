@@ -1,5 +1,5 @@
 puts "EXP \t - \t Res"
 
 File.open('test_res.txt', 'r') do |f|
-  puts "#{f.readline} \t - \t #{gets.strip.to_i}"
+  f.readlines.each { |line| puts "#{line.strip} \t - \t #{gets.strip}" }
 end

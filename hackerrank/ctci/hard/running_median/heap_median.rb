@@ -20,31 +20,46 @@ class MinHeap
     p @heap
     @heap << itm
     arrange_heap!
+    sort_heap
     p @heap
   end
 
   private
   def arrange_heap!
     last = @heap.length - 1
-    up_check last
+    heapify last
   end
 
-  def up_check child
+  def sort_heap
+
+  end
+
+  def get_parent i
+    (i-1)/2
+    i == 0 ? i : (i-1)/2
+  end
+
+  def get_left i
+    (i*2)+1
+  end
+
+  def get_right i
+    (i*2)+2
+  end
+
+  def heapify child
     # get_parent=-> i { i == 0 ? i : (i-1)/2 }
-    get_parent=-> i { (i-1)/2 }
-    get_left=-> i { (i*2)+1 }
-    get_right=-> i { (i*2)+2 }
 
     begin
-    parent = get_parent[child]
-    puts "#{child} #{parent} - #{@heap[child]} vs #{@heap[parent]}"
-    return if parent < 0
-    if @heap[child] < @heap[parent]
-      swap child, parent
-      up_check parent
-    elsif child != 0 # for the first element
-      # down_check parent
-    end
+      parent = get_parent(child)
+      puts "#{child} #{parent} - #{@heap[child]} vs #{@heap[parent]}"
+      return if parent < 0
+      if @heap[child] < @heap[parent]
+        swap child, parent
+        heapify parent
+      elsif child != 0 # for the first element
+        # down_check parent
+      end
     rescue Exception => e
       e
     end
@@ -52,7 +67,7 @@ class MinHeap
   end
 
   def swap child, parent
-  # def bubble_up child, parent
+    # def bubble_up child, parent
     @heap[child], @heap[parent] = @heap[parent], @heap[child]
   end
 

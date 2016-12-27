@@ -17,7 +17,7 @@ class MinHeap
   end
 
   def add itm
-    p @heap
+    # p @heap
     @heap << itm
     arrange_heap!
     p @heap

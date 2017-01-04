@@ -41,3 +41,28 @@ def check_binary_search_tree_(root):
         if root.right != None:
             return check_binary_search_tree_(root.right)
     return True
+
+
+in order try
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+""" Node is defined as
+class node:
+  def __init__(self, data):
+      self.data = data
+      self.left = None
+      self.right = None
+"""
+def check_binary_search_tree_(root):
+    last = None
+    print("Yes") if check_bst(root,last) else print("No")
+
+def check_bst(node,last):
+    if root != None:
+        if not check_bst(node.left):
+            return False
+        if self.last != None and node.data < last.data:
+            return False
+        self.last = node
+        return check_bst(node.right)
+    return True

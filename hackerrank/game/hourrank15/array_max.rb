@@ -42,3 +42,23 @@ require_relative '../../../utils/debug_mate'
 #
 #
 #
+
+# I think this is it
+
+
+g = gets.strip.to_i
+for a0 in (0..g-1)
+  n = gets.strip.to_i
+  a = gets.split(' ').map(&:to_i)
+  # tic
+  max = 0
+  i = 0
+  a.each do |itm|
+    if itm>max
+      i+=1
+      max = itm
+    end
+  end
+  puts i.odd? ? "BOB" : "ANDY"
+  # p toc
+end

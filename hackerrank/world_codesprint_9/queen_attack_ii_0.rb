@@ -38,7 +38,6 @@ class Board
     low_col = (0...@c_q).to_a.reverse
     hi_col = (@c_q+1...@lim).to_a
     lcs,hcs,lrs,hrs = low_col.size,hi_col.size,low_row.size,hi_row.size
-
     run([@r_q]*lcs, low_col)
     run([@r_q]*hcs, hi_col)
     run(low_row, [@c_q]*lrs)
@@ -57,37 +56,6 @@ class Board
       return if r.nil? or c.nil?
       return if b[r,c] == -1
       @res += 1
-    end
-  end
-
-
-  def count2
-    @res = 0
-    @que = %w[n s e w ne nw se sw]
-    do_next
-    until @que.empty?
-
-    end
-    @res
-  end
-
-  def do_next
-    @dir ||= {}
-    @que.each{|d| @dir[d] = next_step(d,[@r_q, @c_q])}
-  end
-
-  def next_step dir,loc
-    r,c = loc
-    case dir
-      when 'e' then [r+=1,c]
-      when 'w' then [r-=1,c]
-      when 'n' then [r,c+=1]
-      when 's' then [r,c-=1]
-      when 'ne' then [r+=1,c+=1]
-      when 'nw' then [r-=1,c+=1]
-      when 'se' then [r+=1,c-=1]
-      when 'sw' then [r-=1,c-=1]
-      else
     end
   end
 end

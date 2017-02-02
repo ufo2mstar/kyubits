@@ -5,6 +5,8 @@
 #     3 l r: Print the minimum value of any .
 #     4 l r: Print the sum of all .
 
+# can optimize with memoization, stacking up the order of operations, looking or repeating nums etc..
+
 #!/bin/ruby
 
 n, q = gets.strip.split(' ')

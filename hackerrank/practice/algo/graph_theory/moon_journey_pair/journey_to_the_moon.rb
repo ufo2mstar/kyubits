@@ -36,7 +36,6 @@ class MyTree
 
   def merge tree
     @nodes.merge! tree.nodes
-    # @nodes
   end
 end
 
@@ -53,11 +52,15 @@ class Forest
 
   def sow node_1, node_2
     t_n1, t_n2 = @nodes[node_1], @nodes[node_2]
-    if t_n1 and t_n2 and t_n1!= t_n2
-      big_tree, small_tree = t_n1.count > t_n2.count ? [t_n1, t_n2] : [t_n2, t_n1]
-      transfer small_tree, big_tree
-      big_tree.merge small_tree
-      @trees.delete(small_tree.name)
+    if t_n1 and t_n2
+      if t_n1 != t_n2 # don't count repeats
+        big_tree, small_tree = t_n1.count > t_n2.count ? [t_n1, t_n2] : [t_n2, t_n1]
+        transfer small_tree, big_tree
+        big_tree.merge small_tree
+        @trees.delete(small_tree.name)
+      else
+        t_n1.link_nodes node_1, node_2
+      end
     elsif t_n1.nil? and t_n2.nil?
       add_tree node_1, node_2
     elsif t_n1.nil?
@@ -93,13 +96,10 @@ class Forest
   end
 
   def make_remainders
-    lone = 0
     @node_count.times do |n|
       unless @nodes[n]
-        # add_tree n
-        lone+=1
+        add_tree n
       end
-      lone
     end
   end
 
@@ -113,18 +113,20 @@ class Forest
   end
 
   def compute
-    # lone = make_remainders # takes too long!
-    lone = @node_count-@nodes.length
-    # show_trees # for viz
+    # make_remainders # takes too long!
+    show_trees # for viz
     count_queue = []
     @trees.values.each do |t|
       count_queue << t.count
     end
+    # lone = @node_count-@nodes.length
+    lone = @node_count
     sum = (lone-1)*lone/2
     while count_queue.length > 0
       n = count_queue.pop
-      count_queue.each { |c| sum+=n*c }
-      sum+=lone*n
+      # count_queue.each { |c| sum+=n*c }
+      # sum+=lone*n
+      sum-=(n-1)*n/2
     end
     sum
   end

@@ -96,10 +96,13 @@ class Forest
   end
 
   def make_remainders
+    lone = 0
     @node_count.times do |n|
       unless @nodes[n]
-        add_tree n
+        # add_tree n
+        lone+=1
       end
+      lone
     end
   end
 
@@ -107,22 +110,24 @@ class Forest
     @trees.each do |t_name, t|
       puts "#{t_name} => #{t.nodes.keys} = #{t.count}"
     end
-    @nodes.each do |n,t|
+    @nodes.each do |n, t|
       puts "#{n} => #{t.name}"
     end
   end
 
   def compute
-    make_remainders
+    # lone = make_remainders
+    lone = @node_count-@nodes.length
     # show_trees
-    sum = 0
     count_queue = []
     @trees.values.each do |t|
       count_queue << t.count
     end
-    while count_queue.length > 1
+    sum = (lone-1)*lone/2
+    while count_queue.length > 0
       n = count_queue.pop
       count_queue.each { |c| sum+=n*c }
+      sum+=lone*n
     end
     sum
   end
@@ -169,4 +174,5 @@ puts result
 
 # 1 => 4
 # 2 => 23
-# 3 => 3984 but 1584
+# 3 => 3984
+# 11 => 4999949998

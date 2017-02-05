@@ -52,9 +52,6 @@ class Forest
   end
 
   def sow node_1, node_2
-    # match, extra = [node_1,node_2] & @nodes
-    # puts "Extra #{extra}" if extra
-    # n_old, n_new = nil, nil
     t_n1, t_n2 = @nodes[node_1], @nodes[node_2]
     if t_n1 and t_n2 and t_n1!= t_n2
       big_tree, small_tree = t_n1.count > t_n2.count ? [t_n1, t_n2] : [t_n2, t_n1]
@@ -116,9 +113,9 @@ class Forest
   end
 
   def compute
-    # lone = make_remainders
+    # lone = make_remainders # takes too long!
     lone = @node_count-@nodes.length
-    # show_trees
+    # show_trees # for viz
     count_queue = []
     @trees.values.each do |t|
       count_queue << t.count
@@ -133,33 +130,6 @@ class Forest
   end
 end
 
-
-class Comb
-
-  def self.ncr(n, r)
-    a, b = r, n-r
-    a, b = b, a if a < b # a is the larger
-    numer = (a+1..n).inject(1) { |t, v| t*v } # n!/r!
-    denom = (2..b).inject(1) { |t, v| t*v } # (n-r)!
-    numer/denom
-  end
-
-  def self.npr(n, r)
-    a, b = r, n-r
-    # a, b  = b, a if a < b # a is the larger
-    numer = (1..n).inject(1) { |t, v| t*v } # n!
-    denom = (2..b).inject(1) { |t, v| t*v } # (n-r)!
-    numer/denom
-  end
-
-  def self.facto n
-    (1..n).inject(1) { |f, v| f*v } # n!
-  end
-
-end
-
-
-# Enter your code here. Read input from STDIN. Print output to STDOUT
 N, i = gets.split.map { |x| x.to_i }
 
 f = Forest.new 'gir', N
@@ -170,7 +140,6 @@ end
 
 result = f.compute
 puts result
-
 
 # 1 => 4
 # 2 => 23

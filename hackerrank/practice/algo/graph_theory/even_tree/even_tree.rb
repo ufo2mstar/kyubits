@@ -4,14 +4,25 @@ class Node
   def initialize name
     @name = name
     @links = {}
+    @weight = 0
   end
 
   def add_link node
     @links[node.name] = node
+    weigh
   end
 
-  def branches
-    @links.size
+  def chop_link node
+    @links.delete(node.name)
+    weigh
+  end
+
+  def weigh
+    @weight = @links.size
+  end
+
+  def all_links
+    @links.keys
   end
 end
 
@@ -34,6 +45,22 @@ class MyTree
     node_2.add_link node_1
   end
 
+  def chop_link node_1, node_2
+    node_1.chop_link node_2
+    node_2.chop_link node_1
+    clean_up node_2
+  end
+
+  def clean_up node
+    delete_q = node.name
+    until delete_q.empty?
+      delete_q.pop do |n|
+        delete_q += node.all_links
+        @nodes.delete(n)
+      end
+    end
+  end
+
   def count
     @nodes.keys.length # returns count of all the nodes
   end
@@ -42,10 +69,11 @@ class MyTree
     @nodes.merge! tree.nodes
   end
 
-  def leaves
+  def leaves limit = nil
     res = []
     @nodes.each do |n, val|
       res << n if val.branches == 1
+      break if limit and res.size >= limit
     end
     res
   end
@@ -125,7 +153,21 @@ class Forest
       puts "#{t_name} => #{t.nodes.keys} = #{t.count}"
     end
     @nodes.each do |n, t|
-      puts "#{n} => #{t.name}"
+      puts "#{n} => #{t.name} => #{t.nodes[n].links.keys}"
+    end
+  end
+
+  def fell
+    remaining = t.all_nodes
+    chain = 0
+    until remaining.empty?
+      leaf = t.leaves(1).first
+      remaining -= leaf
+      chain+=1
+      while chain.odd?
+
+      end
+      chain = 0
     end
   end
 
@@ -134,10 +176,12 @@ class Forest
       nxts = t.leaves
       remaining = t.all_nodes
       visited = nxts
-      cut = 0 # increase as we get evens
+      cuts = 0 # increase as we get evens
       nxt_level = {}
+
       until remaining.empty?
         this_visit = []
+
         # step up once
         nxts.each do |en|
           ends = t.nodes[en].links.keys
@@ -150,6 +194,7 @@ class Forest
             end
           end
         end
+
         # count sums
         this_visit.uniq!
         visited += this_visit
@@ -161,7 +206,7 @@ class Forest
         remaining -= nxts
         nxts = nxt_level.keys
       end
-      puts cut-1
+      puts cuts
     end
   end
 
@@ -195,4 +240,4 @@ i.times do
 end
 
 f.ascend
-# f.show_trees
+f.show_trees

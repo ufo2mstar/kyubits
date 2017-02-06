@@ -133,7 +133,7 @@ class Forest
     @trees.values.each do |t|
       nxts = t.leaves
       remaining = t.all_nodes
-      visited = []
+      visited = nxts
       cut = 0 # increase as we get evens
       nxt_level = {}
       until remaining.empty?
@@ -142,22 +142,26 @@ class Forest
         nxts.each do |en|
           ends = t.nodes[en].links.keys
           ends.each do |n|
-          unless visited.include? n
-            this_visit << n
-            nxt_level[n] ||= 0
-            nxt_level[n] += 1
+            till_val = nxt_level[en] || 0
+            unless visited.include? n
+              this_visit << n
+              nxt_level[n] ||= 0
+              nxt_level[n] += till_val + 1
+            end
           end
         end
-        end
         # count sums
-        nxt_level.values.each do |n|
-          cut+=1 if n.odd?
-        end
+        this_visit.uniq!
         visited += this_visit
+
+        this_visit.each do |n|
+          cut+=1 if nxt_level[n].odd?
+        end
+
         remaining -= nxts
         nxts = nxt_level.keys
       end
-      puts cut
+      puts cut-1
     end
   end
 
@@ -190,5 +194,5 @@ i.times do
   f.sow a, b
 end
 
-puts f.ascend
-f.show_trees
+f.ascend
+# f.show_trees

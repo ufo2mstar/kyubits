@@ -160,8 +160,8 @@ end
 def region r, c
   res = []
   @r_ary = @rr.search(r)
-  @c_ary = @cc.search(c)
-  @r_ary.each{|rr| cc = @rc_hsh["r#{rr}"] ; @ary << [rr.first,rr.last-1,cc.first,cc.last-1] if @c_ary.include?(cc)}
+  # @c_ary = @cc.search(c)
+  @r_ary.each{|rr| cc = @rc_hsh["r#{rr}"] ; @ary << [rr.first,rr.last-1,cc.first,cc.last-1] if (cc).include?(c)}
   @ary.each do |lims|
     r1, r2, c1, c2 = lims
     name = "[#{r1},#{c1}][#{r2},#{c2}]"

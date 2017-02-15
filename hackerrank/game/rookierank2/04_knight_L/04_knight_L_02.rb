@@ -69,7 +69,7 @@ class KnightL
         [x+a, y+b],
         [x+a, y-b],
         [x-a, y+b],
-        [x-a, y+b],
+        [x-a, y-b], # FML
         [x+b, y+a],
         [x+b, y-a],
         [x-b, y+a],
@@ -164,6 +164,7 @@ class KnightL
       nextQ.clear
       r+=1
     end
+    show_board board
     -1
   end
 
@@ -171,7 +172,8 @@ end
 
 # n = gets.chomp.to_i
 n,a,b = 11,1,6
-n,a,b = 11,2,7
+n,a,b = 11,2,9
+# n,a,b = 21,5,4
 
 k = KnightL.new n
 # k.run

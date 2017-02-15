@@ -33,13 +33,16 @@ class KnightL
   end
 
   def run
+    @print = false
     compute
     disp
+    @print = true
   end
 
-  def check a,b
-    ary = [a,b]
-    bfs(ary)
+  def check a, b
+    @print = true
+    ary = [a, b]
+    p bfs(ary)
   end
 
   def kni_l a, b, n, x, y
@@ -72,6 +75,7 @@ class KnightL
     ]
     res = []
     inp.each { |ary| i, j = ary; res << ary unless i >= n or i < 0 or j >= n or j < 0 }
+    # inp.each { |ary| i, j = ary; res << ary unless i > n or i < 0 or j > n or j < 0 }
     res
   end
 
@@ -95,8 +99,36 @@ class KnightL
     end
   end
 
-  # def bfs ary
+  def show_board b
+    if @print
+      (0...@n).each do |i|
+        res = []
+        (0...@n).each do |j|
+          ary = [i, j]
+          res << (b[ary] || '-')
+        end
+        puts res.join("\t")
+      end
+      puts "-"*100
+    end
+  end
+
+  def show_history h, b, d
+    prev = h[d]
+    board = {}
+    board[[0, 0]]=0
+    loop do
+      board[d] = b[d]
+      d = prev
+      prev = h[prev]
+    end
+    show_board board
+  end
+
+  def bfs ary
     a, b = ary
+    board = {}
+    history = {}
     visited = Set.new
     currQ = Queue.new
 
@@ -109,19 +141,23 @@ class KnightL
       currQ.clear
       until nextQ.empty?
         curr = nextQ.deq
+        board[curr] = r
         if curr == dest
+          show_board board
+          show_history history, board, dest
           return r
         else
           visited << curr
           nxt_ary = kni_l(a, b, @n, *curr)
           nxt_ary.each do |nxt|
             unless visited.include? nxt
-              visited << nxt
+              history[nxt] = curr
               currQ.enq nxt
             end
           end
         end
       end
+      show_board board
       nextQ.clear
       r+=1
     end
@@ -135,4 +171,4 @@ n = 11
 k = KnightL.new n
 # k.run
 
-k.check 1,6
+k.check 1, 6

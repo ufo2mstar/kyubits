@@ -30,13 +30,25 @@ class KnightL
   def initialize n
     @n = n
     @board = {}
-    # compute
-    # disp
+  end
+
+  def run
+    compute
+    disp
+  end
+
+  def check a,b
+    ary = [a,b]
+    bfs(ary)
   end
 
   def kni_l a, b, n, x, y
-    xx=[x-a, x+a, x-b, x+b]
-    yy=[y-a, y+a, y-b, y+b]
+    #todo: rethink non hard coded logic
+    # xx=[x-a, x+a, x-b, x+b]
+    # yy=[y-a, y+a, y-b, y+b]
+    # xx = [a,b]
+    # yy = [x,y]
+    ## aah = [+,-] #that's where it was!
     # res = []
     # xx.each do |i|
     #   unless i >= n or i < 0
@@ -48,16 +60,29 @@ class KnightL
     #   end
     # end
     # res
+    inp = [
+        [x+a, y+b],
+        [x+a, y-b],
+        [x-a, y+b],
+        [x-a, y+b],
+        [x+b, y+a],
+        [x+b, y-a],
+        [x-b, y+a],
+        [x-b, y-a],
+    ]
+    res = []
+    inp.each { |ary| i, j = ary; res << ary unless i >= n or i < 0 or j >= n or j < 0 }
+    res
   end
 
   def disp
-    @n.times do |i|
-      @n.times do |j|
+    (1...@n).each do |i|
+      res = []
+      (1...@n).each do |j|
         ary = [i, j].sort
-        print "#{@board[ary]} "
-        # p ary
+        res << @board[ary]
       end
-      puts
+      puts res.join(' ')
     end
   end
 
@@ -70,7 +95,7 @@ class KnightL
     end
   end
 
-  def bfs ary
+  # def bfs ary
     a, b = ary
     visited = Set.new
     currQ = Queue.new
@@ -106,8 +131,8 @@ class KnightL
 end
 
 # n = gets.chomp.to_i
-n = 5
+n = 11
 k = KnightL.new n
+# k.run
 
-x, y, a, b = 0, 0, 1, 4
-k.kni_l a, b, n, x, y
+k.check 1,6

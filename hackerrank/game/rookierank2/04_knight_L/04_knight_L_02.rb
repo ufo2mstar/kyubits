@@ -63,6 +63,8 @@ class KnightL
     #   end
     # end
     # res
+    # a,b=a-1,b-1
+    # x,y=x-1,y-1
     inp = [
         [x+a, y+b],
         [x+a, y-b],
@@ -116,11 +118,12 @@ class KnightL
   def show_history h, b, d
     prev = h[d]
     board = {}
-    board[[0, 0]]=0
+    # board[[0, 0]]=0
     loop do
       board[d] = b[d]
       d = prev
-      prev = h[prev]
+      prev = h[d]
+      break if prev.nil?
     end
     show_board board
   end
@@ -167,8 +170,9 @@ class KnightL
 end
 
 # n = gets.chomp.to_i
-n = 11
+n,a,b = 11,1,6
+n,a,b = 11,2,7
+
 k = KnightL.new n
 # k.run
-
-k.check 1, 6
+k.check a,b

@@ -33,14 +33,14 @@ class KnightL
   end
 
   def run
-    @print = false
+    @debug = false
     compute
     disp
-    @print = true
+    @debug = true
   end
 
   def check a, b
-    @print = true
+    @debug = true
     ary = [a, b]
     p bfs(ary)
   end
@@ -102,7 +102,7 @@ class KnightL
   end
 
   def show_board b
-    if @print
+    if @debug
       (0...@n).each do |i|
         res = []
         (0...@n).each do |j|
@@ -116,16 +116,18 @@ class KnightL
   end
 
   def show_history h, b, d
-    prev = h[d]
-    board = {}
-    # board[[0, 0]]=0
-    loop do
-      board[d] = b[d]
-      d = prev
+    if @debug
       prev = h[d]
-      break if prev.nil?
+      board = {}
+      # board[[0, 0]]=0
+      loop do
+        board[d] = b[d]
+        d = prev
+        prev = h[d]
+        break if prev.nil?
+      end
+      show_board board
     end
-    show_board board
   end
 
   def bfs ary
@@ -154,6 +156,7 @@ class KnightL
           nxt_ary = kni_l(a, b, @n, *curr)
           nxt_ary.each do |nxt|
             unless visited.include? nxt
+              visited << nxt
               history[nxt] = curr
               currQ.enq nxt
             end
@@ -170,11 +173,13 @@ class KnightL
 
 end
 
-# n = gets.chomp.to_i
-n,a,b = 11,1,6
-n,a,b = 11,2,9
+n = gets.chomp.to_i
+
+# n,a,b = 11,1,6
+# n,a,b = 11,2,9
 # n,a,b = 21,5,4
+# n, a, b = 20, 1, 1
 
 k = KnightL.new n
-# k.run
-k.check a,b
+k.run
+# k.check a, b

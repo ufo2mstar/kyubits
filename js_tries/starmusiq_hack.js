@@ -63,7 +63,7 @@ setTimeout(function(i){console.log(i)},2000);i++
 setTimeout(function(){writeNumber.html("3")},3000);
 
 
-javascript:
+// javascript:
 function _x(STR_XPATH) {
     var xresult = document.evaluate(STR_XPATH, document, null, XPathResult.ANY_TYPE, null);
     var xnodes = [];

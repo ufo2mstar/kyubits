@@ -3,7 +3,7 @@ jscript.src = "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js";
 jscript.src= "https://code.jquery.com/jquery-3.1.0.min.js"
 document.getElementsByTagName("body")[0].appendChild(jscript);
 
-/html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody/tr[4]/td[3]/a
+// /html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody/tr[4]/td[3]/a
 
 $x('/html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody/tr[2]/td[3]/a')[0].click()
 
@@ -28,19 +28,19 @@ if($x('/html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody
 i=i+1;
 } while(i<max_songs)
 
-javascript: $x('/html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody/tr[2]/td[3]/a')[0].click()
+// javascript: $x('/html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody/tr[2]/td[3]/a')[0].click()
 
-javascript:
-function _x(STR_XPATH) {
-    var xresult = document.evaluate(STR_XPATH, document, null, XPathResult.ANY_TYPE, null);
-    var xnodes = [];
-    var xres;
-    while (xres = xresult.iterateNext()) {
-        xnodes.push(xres);
-    }
-
-    return xnodes;
-}
+// javascript:
+// function _x(STR_XPATH) {
+//     var xresult = document.evaluate(STR_XPATH, document, null, XPathResult.ANY_TYPE, null);
+//     var xnodes = [];
+//     var xres;
+//     while (xres = xresult.iterateNext()) {
+//         xnodes.push(xres);
+//     }
+//
+//     return xnodes;
+// }
 
 function download(i){
 	path = "_x('/html/body/table[1]/tbody/tr[2]/td[2]/table[4]/tbody/tr[1]/td/table/tbody/tr["+i+"]/td[3]/a')[0].click();";

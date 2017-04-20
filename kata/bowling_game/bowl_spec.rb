@@ -6,14 +6,11 @@ describe Game do
 
   let(:game) {Game.new}
 
+  # rolls
   def roll rolls, pins
     rolls.times do |n|
       game.roll(pins)
     end
-  end
-
-  def check_score expected_score
-    expect(game.score).to eql(expected_score)
   end
 
   def roll_spare
@@ -23,6 +20,11 @@ describe Game do
 
   def roll_strike
     game.roll(10)
+  end
+
+  # checker
+  def check_score expected_score
+    expect(game.score).to eql(expected_score)
   end
 
   context "simple rolls" do
@@ -40,12 +42,16 @@ describe Game do
   context "special cases" do
     it "spare" do
       roll_spare
-      game.roll(3)
+      roll(1,3)
       roll(17, 0)
       check_score 16
     end
     it "strike" do
       roll_strike
+      roll(1,3)
+      roll(1,4)
+      roll(17,0)
+      check_score 24
     end
   end
 

@@ -12,10 +12,13 @@ class Game
 
 	def score
 		frame = 0
+		play = 0
+		total = 0
 		while frame < 10
-			@rolls[0]
+			total += @rolls[play] + @rolls[play+1]
 			frame+=1
+			play +=1
 		end
-
+		total
 	end
 end

@@ -42,22 +42,23 @@ describe Game do
   context "special cases" do
     it "spare" do
       roll_spare
-      roll(1,3)
+      roll(1, 3)
       roll(17, 0)
       check_score 16
     end
+    
     it "strike" do
       roll_strike
-      roll(1,3)
-      roll(1,4)
-      roll(17,0)
+      roll(1, 3)
+      roll(1, 4)
+      roll(17, 0)
       check_score 24
     end
   end
 
   context "perfect game" do
     it "has 12 rounds and scores 300" do
-      roll(12,10)
+      roll(12, 10)
       check_score 300
     end
   end

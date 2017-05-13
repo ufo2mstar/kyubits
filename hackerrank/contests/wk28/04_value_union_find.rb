@@ -1,6 +1,7 @@
 #!/bin/ruby
 
 class Friends
+  attr_accessor :tree, :val
   def initialize people
     @total_people = people
     @tree = Array.new people+1

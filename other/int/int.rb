@@ -11,11 +11,13 @@ end
 def recu(str, rem)
   if rem > 0
     recu str+"(", rem-1
-    recu str+")", rem unless is_balanced? str
+    # recu str+")", rem unless is_balanced? str
+    recu str+")", rem if str.size.odd?
   else
-    while str.size < (2*@n)
-      str+=")"
-    end
+    # while str.size < (2*@n)
+    #   str+=")"
+    # end
+    str+=")" * ((2*@n)-str.size)
     @set << str
   end
 end

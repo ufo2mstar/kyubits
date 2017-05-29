@@ -24,12 +24,12 @@ class BST
   end
 
   class Iterator
-    def initialize # root
+    def initialize root
       # @root = root
       @stack = []
       @set = {}
       @last = nil
-      look_left @root
+      look_left root
     end
 
     def has_next?
@@ -38,11 +38,12 @@ class BST
 
     def next
       next_node = @stack.pop
-      right = next_node.right
-      if right
-        @stack.push(right)
-        look_left right
-      end
+      # right = next_node.right
+      # if right
+      #   #@stack.push(right)
+      #   look_left right
+      # end
+      look_left next_node.right if next_node.right
       next_node.val
     end
 
@@ -52,7 +53,7 @@ class BST
       # while node.left do
       if node
         @stack.push(node)
-        look_left node
+        look_left node.left
       end
     end
   end
@@ -65,15 +66,15 @@ class BST
   end
 
   def iterator
-    @itr = Iterator.new # @root
+    @itr = Iterator.new @root
   end
 
 end
 
-LIM=10
+LIM=100
 srand 123
 ary = (1..LIM).to_a.shuffle
-ary = [4,2,6,1,3,5,7]
+# ary = [4,2,6,1,3,5,7]
 bst = BST.new ary
 itr = bst.iterator
 

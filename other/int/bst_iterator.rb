@@ -28,40 +28,32 @@ class BST
       # @root = root
       @stack = []
       @set = {}
-      @curr = nil
       @last = nil
+      look_left @root
     end
 
     def has_next?
-      @curr = look_next
+      not @stack.empty?
     end
 
     def next
-
+      next_node = @stack.pop
+      right = next_node.right
+      if right
+        @stack.push(right)
+        look_left right
+      end
+      next_node.val
     end
 
     private
-    def look_next
-      @curr ||= @root
-      if @last == @stack.last.val
-        @curr = @stack.pop
-        while @curr.right do
-          @stack.push(@curr.right) #if @curr.right
-        end
-      else
 
-        while @curr.left do
-          @stack.push(@curr.left) #if @curr.left
-        end
-        # @stack.push(@curr.left ? @curr.left : @curr.right)
+    def look_left node
+      # while node.left do
+      if node
+        @stack.push(node)
+        look_left node
       end
-
-      @last = @stack.last.val
-      # @last # returns the leftmost value
-    end
-
-    def look_next node
-      return node.val unless node.left
     end
   end
 
@@ -79,7 +71,9 @@ class BST
 end
 
 LIM=10
+srand 123
 ary = (1..LIM).to_a.shuffle
+ary = [4,2,6,1,3,5,7]
 bst = BST.new ary
 itr = bst.iterator
 

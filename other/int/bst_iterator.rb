@@ -25,10 +25,7 @@ class BST
 
   class Iterator
     def initialize root
-      # @root = root
       @stack = []
-      @set = {}
-      @last = nil
       look_left root
     end
 
@@ -38,20 +35,18 @@ class BST
 
     def next
       next_node = @stack.pop
-      # right = next_node.right
-      # if right
-      #   #@stack.push(right)
-      #   look_left right
-      # end
-      look_left next_node.right if next_node.right
+      if next_node.right
+        puts "stacking right #{next_node.val}"
+        look_left next_node.right
+      end
       next_node.val
     end
 
     private
 
     def look_left node
-      # while node.left do
       if node
+        puts "stacking left #{node.val}"
         @stack.push(node)
         look_left node.left
       end
@@ -74,7 +69,7 @@ end
 LIM=100
 srand 123
 ary = (1..LIM).to_a.shuffle
-# ary = [4,2,6,1,3,5,7]
+# ary = [4, 2, 6, 1, 3, 5, 7]
 bst = BST.new ary
 itr = bst.iterator
 

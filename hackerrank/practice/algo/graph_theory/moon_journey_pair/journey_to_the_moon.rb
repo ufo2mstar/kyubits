@@ -3,11 +3,11 @@ class Node
 
   def initialize name
     @name = name
-    @link = {}
+    @links = {}
   end
 
   def add_link node
-    @link[node.name] = node
+    @links[node.name] = node
   end
 end
 

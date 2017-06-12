@@ -4,28 +4,29 @@ angular.module('estimator', ['estimate.directives'])
         $scope.complexity = 1;
         $scope.datasize = 1;
         $scope.disc = 0;
+
         $scope.complexitySlider = 3;
         $scope.complexitySlider = function (value) {
             complexityvalues = {1: 1, 2: 1.5, 3: 2, 4: 2.5, 5: 3};
             $scope.complexity = complexityvalues[value.from];
-            console.log($scope.complexity);
+            console.log("complexity slider update " + $scope.complexity);
             $scope.compute();
             $scope.$apply()
         };
         $scope.tablesSlider = function (value) {
             $scope.tables = value.from;
-            console.log($scope.tables);
+            console.log("tables slider update " + $scope.tables);
             $scope.compute();
             $scope.$apply()
         };
         $scope.dataSlider = function (value) {
             $scope.datasize = value.from;
-            console.log($scope.datasize);
+            console.log("datasize slider update " + $scope.datasize);
             $scope.compute();
             $scope.$apply()
         };
 
-        var Totalestimate = 0;
+
         $scope.compute = function () {
             if ($scope.tables <= 100) {
                 Tablepricing = $scope.tables * 25
@@ -85,26 +86,33 @@ angular.module('estimator', ['estimate.directives'])
             } else {
                 estimate = estimate
             }
+            // totalEstimate = totalEstimate + estimate;
+            // showTotal();
             return estimate
         };
+
         $scope.computedisc = function () {
             discestimate = estimate - estimate * ($scope.disc / 100);
             return discestimate
         };
 
-        $scope.Clearestimate = function () {
-            $scope.tables = 1;
-            $scope.complexity = 1;
-            $scope.datasize = 1;
-            Totalestimate = Totalestimate + estimate
-        };
+        $('#addApp').on('click', function () {
+            // $scope.complexitySlider.update({from: 3});
+            // $scope.complexitySlider.data('ionRangeSlider').update({from: 3});
+            $("#complexity").data('ionRangeSlider').update({from: 1});
+            $("#tables").data('ionRangeSlider').update({from: 1});
+            $("#datasize").data('ionRangeSlider').update({from: 1});
+            showTotal();
+            $scope.$apply()
+        });
 
-        $scope.UpdateTotal = function () {
-            $scope.tables = 1;
-            $scope.complexity = 1;
-            $scope.datasize = 1;
-            Totalestimate = Totalestimate + estimate;
-            return Totalestimate
+        // var $scope.totalEstimate = 0;
+        $scope.totalEstimate = 0;
+        // $scope.showTotal = function showTotal() {
+        function showTotal() {
+            $scope.totalEstimate = $scope.totalEstimate + estimate;
+            // $scope.totalEstimate =  estimate;
+            // totalEstimate
         };
 
         $scope.complexitySliderdesc = function () {

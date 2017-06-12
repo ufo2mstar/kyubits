@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="estimator">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Archon License Estimator</title>
+
+  <!-- Bootstrap -->
+  <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Ion.RangeSlider -->
+  <link href="vendors/normalize-css/normalize.css" rel="stylesheet">
+  <link href="vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+  <link href="vendors/ion.rangeSlider/css/ion.rangeSlider.skinModern.css" rel="stylesheet">
+
+  <!-- Custom Theme Style -->
+  <link href="build/css/custom.min.css" rel="stylesheet">
+  <!-- Angular JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+
+<body class="nav-md">
+  <div class="container body" ng-controller="EstimateController as estimate">
+    <div class="main_container">
+
+      <!-- page content -->
+      <div role="main">
+        <div class="">
+          <div class="page-title">
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <!-- form grid slider -->
+              <div class="x_panel" style="">
+                <div class="x_title">
+                  <h1>Archon License Estimator</h1>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="row grid_slider">
+                      <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 20px 40px;">
+                        <p>Source DB Complexity</p>
+                        <ion-slider min=1 max=5 grid=true step=1 grid_num=10 id="complexity" on-change="complexitySlider" from = "5" value="" type="single" name="complexity"></ion-slider>
+                        <!--<input id="complexity">kod </input>-->
+                        <!--<ion-slider id="complexity"></ion-slider>-->
+                      </div>
+					  <div class="samplecol-md-12 col-sm-12 col-xs-12" style="padding: 10px 40px;">
+                        <p>{{complexitySliderdesc()}}</p>
+                      </div>
+                    </div>
+                    <div class="row grid_slider">
+                      <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 20px 40px;">
+                        <p>Number of Tables in SourceDB</p>
+                        <ion-slider min=1 max=10000 grid=true id="tables" value="" name="tables" on-change="tablesSlider" ></ion-slider>
+                        <!--<div id="tables"></div>-->
+                      </div>
+                    </div>
+                    <div class="row grid_slider">
+                      <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 20px 40px;">
+                        <p>Source Data Size in GB</p>
+                        <ion-slider min=1 max=5000 grid=true postfix=" GB" force_edges=true id="datasize" value="" name="datasize" on-change="dataSlider"></ion-slider>
+                          <!--<div id="datasize"></div>-->
+                      </div>
+                    </div>
+                  </div>
+				  <div class="col-md-6 col-sm-6 col-xs-12">
+                        <h2 style="font-size: 25px;margin: 5%;padding: 1%;">Discount Percentage : <input type="number" min="0" max="50" ng-model="disc" placeholder="Enter Discount"></h2>
+                   </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <h2 style="font-size: 25px;margin: 5%;padding: 1%;">Archon License Cost</h2>
+                      <h2 style="font-size: 50px;line-height: 10px;margin: 10% 10% 7px;font-weight: bold;">$ {{compute()}}</h2>
+                  </div>
+				  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <h2 style="font-size: 25px;margin: 5%;padding: 1%;">Discounted Archon License Cost</h2>
+                      <h2 style="font-size: 60px;line-height: 10px;margin: 10% 10% 7px;font-weight: bold;">$ {{computedisc()}}</h2>
+                  </div>
+				  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <h2 style="font-size: 25px;margin: 5%;padding: 1%;">
+					<!--<button class="btn btn-primary" ng-click="UpdateTotal()">Add Application</button></h2>-->
+					<button class="btn btn-primary" id="addApp">Add Application</button></h2>
+					<!--<h2 style="font-size: 60px;line-height: 10px;margin: 10% 10% 7px;font-weight: bold;" ng-model="totalEstimate">$ {{showTotal()}}</h2>-->
+					<h2 style="font-size: 60px;line-height: 10px;margin: 10% 10% 7px;font-weight: bold;" ng-model="totalEstimate">$ {{totalEstimate}}</h2>
+                  </div>
+              </div>
+			  </div>
+              <br />
+              <br />
+              <!-- /form grid slider -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /page content -->
+    </div>
+  </div>
+  <!-- jQuery -->
+  <script src="vendors/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Ion.RangeSlider -->
+  <script src="vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+  <!-- Custom Theme Scripts -->
+  <script src="build/js/custom.min.js"></script>
+  <script src="build/js/app.js"></script>
+  <script src="build/js/directives.js"></script>
+
+</body>
+</html>

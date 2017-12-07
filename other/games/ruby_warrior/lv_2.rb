@@ -1,60 +1,7 @@
-class Player
-
-  LIFE = 20
-  attr_accessor :decided
-  attr_accessor :warrior, :health, :state
-
-  def initialize
-    # define states
-    state_clear = Clear.new self
-    # state_injured = Injured.new self
-    # state_under_attack = UnderAttack.new self
-    # state_imminent_threat = ImminentThreat.new self
-    # state_distant_threat = DistantThreat.new self
-
-    # assign
-    @health = LIFE
-    @state = state_clear
-  end
-
-  def play_turn(warrior)
-    @warrior = warrior
-    @space_front = @warrior.feel
-
-    @decided = false
-
-    until @decided
-      @state.decide
-    end
-    @state.move
-  end
-
-  def decided!
-    @decided = true
-  end
-
-  def move
-
-  end
-
-  def walk
-    @warrior.walk!
-  end
-
-  def attack
-    @warrior.attack!
-  end
-
-  def heal
-    @warrior.heal!
-  end
-
-end
-
-
 module State
   def decide
-    info
+    puts 'hello'
+    @player.state.decide
   end
 
   def move
@@ -74,10 +21,10 @@ module State
 end
 
 module DecidedState
-  extend State
+  include State
 
   def decide
-    @player.decided!
+    puts "decided"
   end
 end
 
@@ -99,11 +46,12 @@ class Start
 
   def decide
     @player.state =
-        if @space_front.empty?
+        if @player.space_front.empty?
           @player.advance
         else
           @player.fight
         end
+    super
   end
 end
 
@@ -124,3 +72,55 @@ class Advance
   end
 
 end
+
+
+# ----------------------------------------
+
+
+class Player
+
+  LIFE = 20
+  attr_accessor :decided
+  attr_accessor :warrior, :health, :state
+  attr_reader :space_front, :space_back
+
+  attr_reader :start, :fight, :advance
+
+  def initialize
+    # define states
+    @start = Start.new self
+    @fight = Fight.new self
+    @advance = Advance.new self
+    # state_injured = Injured.new self
+    # state_under_attack = UnderAttack.new self
+    # state_imminent_threat = ImminentThreat.new self
+    # state_distant_threat = DistantThreat.new self
+
+    # assign
+    @health = LIFE
+    @state = @start
+    puts 'starting'
+  end
+
+  def play_turn(warrior)
+    @warrior = warrior
+    @space_front = @warrior.feel
+
+    @state.decide
+    @state.move
+  end
+
+  def walk
+    @warrior.walk!
+  end
+
+  def attack
+    @warrior.attack!
+  end
+
+  def heal
+    @warrior.heal!
+  end
+
+end
+

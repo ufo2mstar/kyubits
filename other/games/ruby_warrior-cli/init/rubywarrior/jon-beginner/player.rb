@@ -1,6 +1,7 @@
 
 
-require_relative 'lib/lv_01'
+# require_relative 'lib/01' # 10
+require_relative 'lib/02'
 
 # class Player
 #   def play_turn(warrior)

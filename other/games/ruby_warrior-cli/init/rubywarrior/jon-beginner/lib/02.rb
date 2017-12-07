@@ -1,3 +1,7 @@
+def pr str
+  puts "  #{str}"
+end
+
 module State
   def decide
     # puts 'hello'
@@ -14,7 +18,7 @@ module State
 
   private
   def info
-    puts 'default '+__method__
+    pr "default #{__method__}"
     # puts 'default '
   end
 
@@ -24,7 +28,7 @@ module DecidedState
   include State
 
   def decide
-    puts "..decided to #{self.class.name}"
+    pr "..decided to #{self.class.name}"
   end
 end
 
@@ -45,7 +49,7 @@ class Start
   include State
 
   def decide
-    puts "  feeling: '#{@player.warrior.feel}'"
+    pr "feeling: '#{@player.warrior.feel}'"
     @player.state =
         if @player.space_front.empty?
           @player.advance
@@ -100,13 +104,13 @@ class Player
     # assign
     @health = LIFE
 
-    puts 'Armored up!'
+    pr 'Armored up!'
   end
 
   def play_turn(warrior)
     @warrior = warrior
     @space_front = @warrior.feel
-    @state = @start
+    self.state = @start
 
     @state.decide
     @state.move
@@ -125,7 +129,7 @@ class Player
   end
 
   def state= new_state
-    puts "  New State: #{new_state.class.name}"
+    pr "New State: #{new_state.class.name}"
     @state = new_state
   end
 end

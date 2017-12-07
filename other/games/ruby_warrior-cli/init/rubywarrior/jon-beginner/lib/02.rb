@@ -1,6 +1,6 @@
 module State
   def decide
-    puts 'hello'
+    # puts 'hello'
     @player.state.decide
   end
 
@@ -14,8 +14,8 @@ module State
 
   private
   def info
-    # puts 'default '+__method__
-    puts 'default '
+    puts 'default '+__method__
+    # puts 'default '
   end
 
 end
@@ -24,7 +24,7 @@ module DecidedState
   include State
 
   def decide
-    puts "decided"
+    puts "..decided to #{self.class.name}"
   end
 end
 
@@ -45,6 +45,7 @@ class Start
   include State
 
   def decide
+    puts "  feeling: '#{@player.warrior.feel}'"
     @player.state =
         if @player.space_front.empty?
           @player.advance
@@ -98,13 +99,14 @@ class Player
 
     # assign
     @health = LIFE
-    @state = @start
-    puts 'starting'
+
+    puts 'Armored up!'
   end
 
   def play_turn(warrior)
     @warrior = warrior
     @space_front = @warrior.feel
+    @state = @start
 
     @state.decide
     @state.move
@@ -122,5 +124,9 @@ class Player
     @warrior.heal!
   end
 
+  def state= new_state
+    puts "  New State: #{new_state.class.name}"
+    @state = new_state
+  end
 end
 

@@ -142,18 +142,6 @@ class Player
     @state.move
   end
 
-  # def walk
-  #   @warrior.walk!
-  # end
-  #
-  # def attack
-  #   @warrior.attack!
-  # end
-  #
-  # def heal
-  #   @warrior.heal!
-  # end
-
   def state= new_state
     pr "New State: #{new_state.class.name}"
     @state = new_state

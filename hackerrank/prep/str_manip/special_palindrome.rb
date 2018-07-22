@@ -5,20 +5,21 @@ require 'stringio'
 
 # Complete the substrCount function below.
 def substrCount(n, s)
-  palins_ary = []
-  for i in 0..n
+  # palins_ary = []
+  palins_ary_count = 0
+  for len in 0..n
     head = 0
-    len = i
     tail = head + len
     while tail < n
       sub_str = s[head..tail]
-      palins_ary << sub_str if isPalindrome sub_str
+      # palins_ary << sub_str if isPalindrome sub_str
+      palins_ary_count+=1 if isPalindrome sub_str
       head+=1
       tail = head + len
     end
   end
   # [palins_ary,palins_ary.count]
-  palins_ary.count
+  palins_ary_count
 end
 
 def isPalindrome s
@@ -36,8 +37,6 @@ def isPalindrome s
 
   return true
 end
-
-isPalindrome 'asas'
 
 fptr = File.open(ENV['OUTPUT_PATH'], 'w')
 

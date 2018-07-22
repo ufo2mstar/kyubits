@@ -8,8 +8,9 @@ def isValid(s)
   code_counts = get_counts_hash s.chars
   freq_counts = get_counts_hash code_counts.values
   # puts str_counts
-  freq_counts.size == 1 or (freq_counts.size == 2 and freq_counts.values.include? 1) ? "YES" : "NO"
-  # [freq_counts["1"] == 1,freq_counts.size == 1, freq_counts]
+  freq_counts.size == 1 or (freq_counts.size == 2 and
+      (freq_counts.values.min == 1 or ((freq_counts.values[0]-freq_counts.values[1]).abs == 1))) ? "YES" : "NO"
+  [freq_counts.values,freq_counts, freq_counts.size == 1, freq_counts.size == 2 , freq_counts.values.min == 1 , ((freq_counts.values[0]-freq_counts.values[1]).abs == 1)]
 end
 
 def get_counts_hash ary

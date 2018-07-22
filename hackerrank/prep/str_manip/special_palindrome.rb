@@ -66,8 +66,9 @@ def substrCount(n, s)
     palins_ary_count+= summ[freq_ary[i]]
     unless i==0 or i==n
       if char_ary[i-1] == char_ary[i+1]
-        n = min(freq_ary[i-1],freq_ary[i-1])
-        palins_ary_count+= summ[n]
+        n = [freq_ary[i+1],freq_ary[i-1]].min
+        # palins_ary_count+= summ[n]
+        palins_ary_count+= n
       end
     end
   }
@@ -84,6 +85,7 @@ def get_freq_dist(s)
     if last_chr != c
       char_ary << c
       freq_ary << 0
+      last_chr = c
     end
     freq_ary[-1]+=1
   }
@@ -91,16 +93,58 @@ def get_freq_dist(s)
 end
 
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+# fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+#
+# n = gets.to_i
+#
+# s = gets.to_s.rstrip
+#
+# result = substrCount n, s
+#
+# fptr.write result
+# fptr.write "\n"
+#
+# fptr.close()
 
-n = gets.to_i
 
-s = gets.to_s.rstrip
+# Complete the substrCount function below.
+def substrCount2(n, s)
+  # palins_ary = []
+  palins_ary_count = 0
+  for len in 0..n
+    head = 0
+    tail = head + len
+    while tail < n
+      sub_str = s[head..tail]
+      # palins_ary << sub_str if isPalindrome sub_str
+      palins_ary_count+=1 if isPalindrome sub_str
+      head+=1
+      tail = head + len
+    end
+  end
+  # [palins_ary,palins_ary.count]
+  palins_ary_count
+end
 
-result = substrCount n, s
+def isPalindrome s
+  ary = s.chars
+  return false if ary.empty?
 
-fptr.write result
-fptr.write "\n"
+  ary.slice! ary.size/2 if ary.size % 2 != 0
+  idx = ary.size/2 - 1
 
-fptr.close()
+  spl_str = ary[idx]
+  while idx >= 0
+    return false if spl_str != ary[ary.size-1-idx]
+    idx-=1
+  end
 
+  return true
+end
+
+str = "ccacacabccacabaaaabbcbccbabcbbcaccabaababcbcacabcabacbbbcccc"
+
+# exp = 1272919
+# got = 1398176
+puts substrCount str.size,str
+puts substrCount2 str.size,str

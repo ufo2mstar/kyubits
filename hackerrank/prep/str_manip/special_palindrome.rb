@@ -13,12 +13,12 @@ def substrCount(n, s)
     while tail < n
       sub_str = s[head..tail]
       palins_ary << sub_str if isPalindrome sub_str
-
       head+=1
       tail = head + len
     end
   end
-  [palins_ary,palins_ary.count]
+  # [palins_ary,palins_ary.count]
+  palins_ary.count
 end
 
 def isPalindrome s
@@ -28,8 +28,9 @@ def isPalindrome s
   ary.slice! ary.size/2 if ary.size % 2 != 0
   idx = ary.size/2 - 1
 
+  spl_str = ary[idx]
   while idx >= 0
-    return false if ary[idx] != ary[ary.size-1-idx]
+    return false if spl_str != ary[ary.size-1-idx]
     idx-=1
   end
 

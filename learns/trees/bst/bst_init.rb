@@ -1,81 +1,12 @@
-class BST
-  class Node
-    attr_accessor :data, :left, :right
+require_relative 'bin_tree_init'
 
-    def initialize int
-      @data = int
-    end
+class BinTree
 
-    def to_s
-      "Node: #{object_id}: data: #{data}"
-    end
-  end
-
-  attr_accessor :root
-
-  def initialize
-    # @root = Node.new
-    @root = nil
-  end
-
-  def size
-    count = 0
-    unless @root.nil?
-      pre_order(@root) {|data| count+=1; puts "pre node #{data} -> #{count}"}
-      # in_order(@root) {|data| count+=1; puts "in node #{data} -> #{count}"}
-      # post_order(@root) {|data| count+=1; puts "post node #{data} -> #{count}"}
-      #
-      # in_order(@root)
-    end
-    count
-  end
-
-
-  def pre_order node, &block
-    return if node.nil?
-    block.call(node.data) if block_given?
-    in_order(node.left,&block)
-    in_order(node.right,&block)
-  end
-
-  def post_order node, &block
-    return if node.nil?
-    in_order(node.left,&block)
-    in_order(node.right,&block)
-    block.call(node.data) if block_given?
-  end
-
-  def in_order_explicit_block node, &block
-    return if node.nil?
-    in_order(node.left,&block)
-    block.call(node.data) if block_given?
-    in_order(node.right,&block)
-    # yield node.data
-  end
-  alias_method :in_order, :in_order_explicit_block
-
-  #warn: not good for recursion
-  def in_order_implicit_block node
-    return if node.nil?
-    in_order(node.left) {yield}
-    yield
-    in_order(node.right) {yield}
-  end
-
-  def insert val
+  def insert_bst val
     if @root.nil?
       @root = Node.new val
     else
       insert_util @root, val
-    end
-  end
-
-
-  def search val
-    if @root.nil?
-      "BST is blank!"
-    else
-      search_util @root, val
     end
   end
 
@@ -97,10 +28,6 @@ class BST
     else
       raise "\nStrict BST here.. We don't allow same data! \n'#{val}' already exists in this BST"
     end
-  end
-
-  def search_util node, val
-
   end
 
 end

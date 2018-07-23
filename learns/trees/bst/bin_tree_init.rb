@@ -10,6 +10,7 @@ class BinTree
 
     def to_s
       "Node: #{object_id}: data: #{data}"
+      "Node: #{data}"
     end
   end
 

@@ -2,12 +2,14 @@ require_relative 'bin_tree_init'
 
 class BinTree
 
-  def insert_bst val
-    if @root.nil?
-      @root = Node.new val
-    else
-      insert_util @root, val
-    end
+  def insert_bst ary
+    ary.each {|val|
+      if @root.nil?
+        @root = Node.new val
+      else
+        insert_util @root, val
+      end
+    }
   end
 
   private

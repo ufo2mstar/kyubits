@@ -1,32 +1,25 @@
 require 'rspec'
-require './bt_init'
+require_relative 'bin_tree_init'
 
 describe 'BinTree test' do
 
-  context "insert test" do
+  context "level order insert test" do
     let(:ary) {[5, 3, 6, 7, 2, 4, 1, 9, 8]}
-    let(:bst) {BinTree.new}
+    let(:bin_tree) {BinTree.new}
 
-    it "add all vals" do
-      ary.each {|val|
-        bst.insert val
-      }
-      puts bst.to_s
-      expect(bst.size).to equal ary.size
+    it "add 10 vals" do
+      bin_tree.insert_level_order ary
+      expect(bin_tree.size).to equal ary.size
     end
   end
 
   context "insert random test" do
     let(:ary) {(0..100).to_a.shuffle!}
-    let(:bst) {BST.new}
+    let(:bin_tree) {BinTree.new}
 
-    it "add all vals" do
-      ary.each {|val|
-        bst.insert val
-        # puts "inserted #{val}"
-      }
-      puts bst.to_s
-      expect(bst.size).to equal ary.size
+    it "add 100 vals" do
+      bin_tree.insert_level_order ary
+      expect(bin_tree.size).to equal ary.size
     end
   end
 end

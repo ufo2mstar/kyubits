@@ -1,5 +1,5 @@
 require 'rspec'
-require './bst_init'
+require_relative 'bst_init'
 
 describe 'BST test' do
 
@@ -8,11 +8,7 @@ describe 'BST test' do
     let(:bst) {BinTree.new}
 
     it "add all vals" do
-      ary.each {|val|
-        bst.insert_bst val
-        # puts "inserted #{val}"
-      }
-      puts bst.to_s
+      bst.insert_bst ary
       expect(bst.size).to equal ary.size
     end
   end
@@ -22,11 +18,7 @@ describe 'BST test' do
     let(:bst) {BinTree.new}
 
     it "add all vals" do
-      ary.each {|val|
-        bst.insert_bst val
-        # puts "inserted #{val}"
-      }
-      puts bst.to_s
+      bst.insert_bst ary
       expect(bst.size).to equal ary.size
     end
   end

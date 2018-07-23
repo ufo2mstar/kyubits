@@ -31,10 +31,23 @@ class BinTree
     end
     count
   end
-  
-  def insert_level_order ary
 
+  def insert_level_order ary
+    i=0
+    n=ary.size
+    @root = level_order_insert_util @root, ary, i, n
   end
+
+  private
+  def level_order_insert_util node, ary, i, n
+    if i<n
+      node = Node.new ary[i]
+      node.left = level_order_insert_util node.left, ary,(2*i)+1,n
+      node.right = level_order_insert_util node.right, ary,(2*i)+2,n
+    end
+    node
+  end
+
 end
 
 

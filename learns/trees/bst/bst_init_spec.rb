@@ -10,7 +10,21 @@ describe 'BST test' do
     it "add all vals" do
       ary.each {|val|
         bst.insert val
-        puts "inserted #{val}"
+        # puts "inserted #{val}"
+      }
+      puts bst.to_s
+      expect(bst.size).to equal ary.size
+    end
+  end
+
+  context "insert random test" do
+    let(:ary) {(0..100).to_a.shuffle!}
+    let(:bst) {BST.new}
+
+    it "add all vals" do
+      ary.each {|val|
+        bst.insert val
+        # puts "inserted #{val}"
       }
       puts bst.to_s
       expect(bst.size).to equal ary.size

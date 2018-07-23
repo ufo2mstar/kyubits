@@ -21,15 +21,34 @@ class BST
   def size
     count = 0
     unless @root.nil?
-      in_order(@root) {|data| count+=1; puts " node #{data} -> #{count}"}
+      pre_order(@root) {|data| count+=1; puts "pre node #{data} -> #{count}"}
+      # in_order(@root) {|data| count+=1; puts "in node #{data} -> #{count}"}
+      # post_order(@root) {|data| count+=1; puts "post node #{data} -> #{count}"}
+      #
+      # in_order(@root)
     end
     count
+  end
+
+
+  def pre_order node, &block
+    return if node.nil?
+    block.call(node.data) if block_given?
+    in_order(node.left,&block)
+    in_order(node.right,&block)
+  end
+
+  def post_order node, &block
+    return if node.nil?
+    in_order(node.left,&block)
+    in_order(node.right,&block)
+    block.call(node.data) if block_given?
   end
 
   def in_order_explicit_block node, &block
     return if node.nil?
     in_order(node.left,&block)
-    block.call(node.data)
+    block.call(node.data) if block_given?
     in_order(node.right,&block)
     # yield node.data
   end

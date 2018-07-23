@@ -22,7 +22,7 @@ describe 'BST test' do
 
     it "found" do
       bin_tree.insert_bst ary
-      expect(bin_tree.search ary.sample).to eq "N(5) R => N(6) <-- there you go!"
+      expect(bin_tree.search 4).to eq "N(5) L => N(3) R => N(4) <-- there you go!"
     end
 
     it "not found" do
@@ -37,7 +37,7 @@ describe 'BST test' do
 
     it "yes" do
       bin_tree.insert_bst ary
-      expect(bin_tree.search ary.sample).to eq "N(2) R => N(5) <-- there you go!"
+      expect(bin_tree.search ary.sample).to eq "N(9) L => N(5) <-- there you go!"
     end
 
     it "no" do

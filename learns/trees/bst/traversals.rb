@@ -2,7 +2,7 @@ module Traversals
 
   def pre_order node, &block
     return if node.nil?
-    block.call(node.data) if block_given?
+    block.call(node) if block_given?
     in_order(node.left,&block)
     in_order(node.right,&block)
   end
@@ -11,15 +11,15 @@ module Traversals
     return if node.nil?
     in_order(node.left,&block)
     in_order(node.right,&block)
-    block.call(node.data) if block_given?
+    block.call(node) if block_given?
   end
 
   def in_order_explicit_block node, &block
     return if node.nil?
     in_order(node.left,&block)
-    block.call(node.data) if block_given?
+    block.call(node) if block_given?
     in_order(node.right,&block)
-    # yield node.data
+    # yield node
   end
   alias_method :in_order, :in_order_explicit_block
 

@@ -35,17 +35,20 @@ class BinTree
   def insert_level_order ary
     i=0
     n=ary.size
-    @root = level_order_insert_util @root, ary, i, n
+    @root = level_order_insert_util ary, i, n
   end
 
   private
-  def level_order_insert_util node, ary, i, n
+  def level_order_insert_util ary, i, n
     if i<n
       node = Node.new ary[i]
-      node.left = level_order_insert_util node.left, ary,(2*i)+1,n
-      node.right = level_order_insert_util node.right, ary,(2*i)+2,n
+      node.left = level_order_insert_util ary,(2*i)+1,n
+      node.right = level_order_insert_util ary,(2*i)+2,n
+      node
+    else
+      # recursion base case: dont run for out of bound nodes
+      # puts "#{i}, #{n}"
     end
-    node
   end
 
 end

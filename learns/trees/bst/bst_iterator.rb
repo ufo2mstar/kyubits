@@ -6,7 +6,6 @@ class BinTree
 
     def initialize root
       @stack = []
-      @stack.push root
       look_left root
     end
 
@@ -19,21 +18,16 @@ class BinTree
     def next
       if has_next?
         node = @stack.pop
-        if node.right
-          @stack.push node.right
-          # keep next ready
-          look_left node.right
-        end
+        # keep next ready
+        look_left node.right if node.right
         node.data
       end
     end
 
     private
     def look_left node
-      if node.left
-        @stack.push node.left
-        look_left node.left
-      end
+      @stack.push node
+      look_left node.left if node.left
     end
   end
 

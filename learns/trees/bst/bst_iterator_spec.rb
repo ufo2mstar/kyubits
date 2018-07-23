@@ -43,10 +43,12 @@ describe 'bin tree iterator test' do
 
       itr = bin_tree.get_iterator
       expect(itr.has_next?).to eq true
+      res = []
       while itr.has_next?
-        puts itr.next
+        res << itr.next
       end
       expect(itr.has_next?).to eq false
+      expect(res).to eq((0..100).to_a)
       expect(bin_tree.size).to eq 101
     end
   end

@@ -23,11 +23,12 @@ class BinTree
   def size
     count = 0
     unless @root.nil?
-      pre_order(@root) {|data| count+=1; puts "pre node #{data} -> #{count}"}
+      # pre_order(@root) {|data| count+=1; puts "pre node #{data} -> #{count}"}
+      # pre_order(@root) {|data| count+=1; puts "pre node #{data} -> #{count}"}
       # in_order(@root) {|data| count+=1; puts "in node #{data} -> #{count}"}
       # post_order(@root) {|data| count+=1; puts "post node #{data} -> #{count}"}
       #
-      # in_order(@root)
+      in_order(@root) {count+=1}
     end
     count
   end
@@ -42,8 +43,8 @@ class BinTree
   def level_order_insert_util ary, i, n
     if i<n
       node = Node.new ary[i]
-      node.left = level_order_insert_util ary,(2*i)+1,n
-      node.right = level_order_insert_util ary,(2*i)+2,n
+      node.left = level_order_insert_util ary, (2*i)+1, n
+      node.right = level_order_insert_util ary, (2*i)+2, n
       node
     else
       # recursion base case: dont run for out of bound nodes

@@ -27,6 +27,7 @@ describe 'bin tree iterator test' do
       expect(itr.next).to eq 6
       expect(itr.next).to eq 7
       expect(itr.next).to eq 8
+      expect(itr.next).to eq 9
       expect(itr.has_next?).to eq false
       expect(bin_tree.size).to eq 9
     end

@@ -6,6 +6,7 @@ class BinTree
 
     def initialize root
       @stack = []
+      @stack.push root
       look_left root
     end
 

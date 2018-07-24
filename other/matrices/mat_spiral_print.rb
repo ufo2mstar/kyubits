@@ -1,7 +1,3 @@
-mat = [(1..5).to_a, (6..10).to_a, (11..15).to_a]
-p mat
-p mat.size
-p mat[0].size
 
 def spiral_print mat
   return if mat.empty?

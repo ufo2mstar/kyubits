@@ -10,7 +10,7 @@ class BinTree
   def show_tree
     str_builder = []
     walk_tree_str @root, true, "", str_builder
-    puts str_builder.join "\n"
+    puts "\n#{str_builder.join("\n")}\n"
   end
 
   private

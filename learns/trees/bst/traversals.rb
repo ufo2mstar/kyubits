@@ -31,4 +31,15 @@ module Traversals
     in_order(node.right) {yield}
   end
 
+  def bfs node, &block
+    queue = []
+    queue << node
+    until queue.empty? do
+      current_node = queue.shift
+      queue << current_node.left if current_node.left
+      queue << current_node.right if current_node.right
+      block.call(current_node) if block_given?
+    end
+  end
+
 end

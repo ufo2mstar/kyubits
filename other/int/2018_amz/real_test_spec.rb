@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'demo_test'
+require_relative 'real_test'
 
 # 12 other tests
 describe "demo_01" do

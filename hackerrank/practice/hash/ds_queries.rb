@@ -9,20 +9,24 @@ def freqQuery(queries)
   count_map = {}
   freq_map.default = 0
   count_map.default = 0
+  res = []
   queries.each do |q|
     type = q[0]
     num = q[1]
     case type
       when 1
+        remove_from count_map, freq_map[num]-1 if freq_map[num] > 0
         add_to freq_map, num
         add_to count_map, freq_map[num]
       when 2
         remove_from freq_map, num
         remove_from count_map, freq_map[num]
+        add_to count_map, freq_map[num]-1 if freq_map[num] > 1
       when 3
-        puts "#{count_map[num] > 0 ? 1 : 0}"
+        res << (count_map[num] > 0 ? 1 : 0)
     end
   end
+  res
 end
 
 def add_to hsh, num
@@ -44,6 +48,8 @@ q.times do |i|
 end
 
 ans = freqQuery queries
+
+puts ans
 
 # fptr.write ans.join "\n"
 # fptr.write "\n"

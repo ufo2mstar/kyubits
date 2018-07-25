@@ -19,7 +19,7 @@ describe 'BinTree test' do
   end
 
   context "bin tree test" do
-    let(:ary) {(0..100).to_a.shuffle!}
+    let(:ary) {(0..100).to_a}
     let(:bin_tree) {BinTree.new}
 
     it "add 100 vals" do

@@ -89,6 +89,7 @@ def reorder_lines(logFileSize, logLines)
     line_type_check line, text_lines, num_lines
   end
 
+  # lexicographical sorting
   text_lines.sort!
 
   final_lines = []
@@ -105,6 +106,7 @@ def line_type_check line, text_lines, num_lines
   if line_words[1] =~ /\d/
     num_lines << line
   else
+    # hack to get the lines in order
     text_lines << (line_words[1..-1]+[line_words[0]]).join(" ")
   end
 end

@@ -4,15 +4,6 @@ require_relative 'bin_tree_init'
 require_relative 'bst_init'
 require_relative 'bst_search'
 
-Random.srand 123
-
-# def complete_tree_util ary
-#
-# end
-#
-# def bst_util ary
-#
-# end
 
 describe 'BST test' do
 
@@ -32,7 +23,7 @@ describe 'BST test' do
   end
   #
   context "shuffle insert check" do
-    let(:ary) {[5, 3, 6, 7, 2, 4, 1, 9, 8].shuffle}
+    let(:ary) {Random.srand 123; [5, 3, 6, 7, 2, 4, 1, 9, 8].shuffle}
     let(:bin_tree) {BinTree.new}
 
     it "yes" do
@@ -47,17 +38,18 @@ describe 'BST test' do
   end
 
   context "insert random test" do
-    let(:ary) {(0..100).to_a.shuffle!}
+
+    let(:ary) {Random.srand 123; (0..100).to_a.shuffle!}
     let(:bin_tree) {BinTree.new}
 
     it "yes" do
       bin_tree.insert_bst ary
-      expect(bin_tree.search ary.sample).to eq "N(4) R => N(90) L => N(56) R => N(85) R => N(87) <-- there you go!"
+      expect(bin_tree.search ary.sample).to eq "N(8) R => N(70) L => N(28) R => N(63) L => N(50) L => N(42) <-- there you go!"
     end
 
     it "no" do
       bin_tree.insert_level_order ary
-      expect(bin_tree.search rand).to eq "0.4774604837377845 Not Found in tree!!"
+      expect(bin_tree.search rand).to eq "0.1530705151247731 Not Found in tree!!"
     end
   end
 end

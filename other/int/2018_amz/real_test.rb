@@ -54,19 +54,19 @@ end
 # 23280670791993
 
 
-def retrieveMostFrequentlyUsedWords(literatureText, wordsToExclude)
-  # WRITE YOUR CODE HERE
+def most_frequently_used_words(literatureText, wordsToExclude)
+
   words = literatureText.split
-  exclude_hsh = {}
-  wordsToExclude.each{|w| exclude_hsh[w] = 1}
+
+  exclude_set = {}
+  wordsToExclude.each{|w| exclude_set[w] = true}
 
   freq_hsh = {}
   freq_hsh.default = 0
 
-  count_hsh = {}
   max_count = 0
   words.each do |word|
-    unless exclude_hsh[word]
+    unless exclude_set[word]
       freq_hsh[word]+=1
       max_count = [max_count,freq_hsh[word]].max
     end
@@ -82,22 +82,12 @@ def retrieveMostFrequentlyUsedWords(literatureText, wordsToExclude)
 end
 
 
-def reorderLines(logFileSize, logLines)
-  # WRITE YOUR CODE HERE
-
+def reorder_lines(logFileSize, logLines)
   text_lines = []
   num_lines = []
 
-  line_id = {}
-  get_line_from_id = {}
-
   logLines.each_with_index do |line,i|
-    line_id[line] = i
-    get_line_from_id[i] = line
-
-    # separate by line type
     line_type_check line, i, text_lines, num_lines
-
   end
 
   text_lines.sort!
@@ -105,11 +95,12 @@ def reorderLines(logFileSize, logLines)
   final_lines = []
 
   text_lines.each do |line_and_id|
-    id = line_and_id.split(" ")[-1]
-    final_lines << get_line_from_id[id.to_i]
+    line_words = line_and_id.split
+    final_lines << ([line_words[-1]]+line_words[0..-2]).join(" ")
   end
 
-  [final_lines,num_lines]
+  # [final_lines,num_lines]
+  final_lines+num_lines
 
 end
 
@@ -118,6 +109,6 @@ def line_type_check line, id, text_lines, num_lines
   if line_words[1] =~ /\d/
     num_lines << line
   else
-    text_lines << (line_words[1..-1]+[line_words[0]]+[id]).join(" ")
+    text_lines << (line_words[1..-1]+[line_words[0]]).join(" ")
   end
 end

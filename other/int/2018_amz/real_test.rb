@@ -85,26 +85,22 @@ end
 def reorder_lines(logFileSize, logLines)
   text_lines = []
   num_lines = []
-
-  logLines.each_with_index do |line,i|
-    line_type_check line, i, text_lines, num_lines
+  logLines.each do |line|
+    line_type_check line, text_lines, num_lines
   end
 
   text_lines.sort!
-  # return text_lines
-  final_lines = []
 
+  final_lines = []
   text_lines.each do |line_and_id|
     line_words = line_and_id.split
     final_lines << ([line_words[-1]]+line_words[0..-2]).join(" ")
   end
-
   # [final_lines,num_lines]
   final_lines+num_lines
-
 end
 
-def line_type_check line, id, text_lines, num_lines
+def line_type_check line, text_lines, num_lines
   line_words = line.split
   if line_words[1] =~ /\d/
     num_lines << line

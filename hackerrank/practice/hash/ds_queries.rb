@@ -15,13 +15,15 @@ def freqQuery(queries)
     num = q[1]
     case type
       when 1
-        remove_from count_map, freq_map[num]-1 if freq_map[num] > 0
+        remove_from count_map, freq_map[num]-1 if freq_map[num] > 1
         add_to freq_map, num
         add_to count_map, freq_map[num]
       when 2
-        remove_from freq_map, num
-        remove_from count_map, freq_map[num]
-        add_to count_map, freq_map[num]-1 if freq_map[num] > 1
+        if freq_map[num] > 0
+          remove_from freq_map, num
+          remove_from count_map, freq_map[num]
+          add_to count_map, freq_map[num]-1 if freq_map[num] > 1
+        end
       when 3
         res << (count_map[num] > 0 ? 1 : 0)
     end

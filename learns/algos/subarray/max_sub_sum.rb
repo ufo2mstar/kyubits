@@ -5,7 +5,7 @@ def mss_kadane ary
     # curr_max += a
     total_max = [curr_max, total_max].max
     curr_max = 0 if curr_max < 0
-    puts "curr_max = #{curr_max} , total_max = #{total_max}"
+    # puts "curr_max = #{curr_max} , total_max = #{total_max}"
   }
   total_max
   # for i=1 to size-1

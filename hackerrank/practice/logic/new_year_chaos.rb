@@ -17,14 +17,14 @@ def minimumBribes(q)
       puts "Too chaotic"
       return
     else
-      j=i
-      while j-1 >= 0 or j+1 > person do
-        j-=1
+      j=[0,person-2].max
+      while j < i do
         if q[j] > person
           bribe_count += 1
         else
           # break if j+1 == person
         end
+        j+=1
       end
     end
     i-=1

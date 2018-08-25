@@ -55,7 +55,6 @@ end
 
 
 def most_frequently_used_words(literatureText, wordsToExclude)
-
   words = literatureText.split
 
   exclude_set = {}

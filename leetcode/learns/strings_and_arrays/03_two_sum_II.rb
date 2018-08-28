@@ -40,15 +40,14 @@ end
 def bin_search_idx ary, aim
   left_i = 0
   right_i = ary.size-1
-  # mid = 0
   while left_i <= right_i
-    mid = (right_i-left_i)/2
+    mid = (right_i+left_i)/2
     if ary[mid] == aim
       return mid
     elsif ary[mid] < aim
       left_i = mid+1
     elsif ary[mid] > aim
-      right_i = mid -1
+      right_i = mid-1
     end
   end
   nil

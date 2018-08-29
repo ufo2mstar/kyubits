@@ -2,7 +2,8 @@ require_relative 'bin_tree_init'
 
 class BinTree
   def is_bst
-    is_bst_util @root, -Float::INFINITY, Float::INFINITY
+    # is_bst_util @root, -Float::INFINITY, Float::INFINITY
+    is_bst_util @root, -1.0/0, 1.0/0
   end
 
   private

@@ -4,14 +4,14 @@ require_relative 'leet_my_linked_list'
 describe 'My LL' do
   it 'should initialize a null list' do
     ll = MyLinkedList.new
-    expect(ll.list).to eq nil
+    expect(ll.llist).to eq nil
   end
 
   it "should add a new head" do
     ll = MyLinkedList.new
     ll.add_at_head 1
     res = ll.get(0)
-    expect(ll.list).to eq res
+    expect(ll.llist).to eq res
   end
 
 

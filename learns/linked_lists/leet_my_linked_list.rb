@@ -12,12 +12,12 @@ class MyLinkedList
     end
   end
 
-  attr_accessor :list
+  attr_accessor :llist
 =begin
     Initialize your data structure here.
 =end
   def initialize()
-    @list = nil
+    @llist = nil
   end
 
 
@@ -27,8 +27,8 @@ class MyLinkedList
     :rtype: Integer
 =end
   def get(index)
-    if @list
-      node = @list
+    if @llist
+      node = @llist
       (index).times do
         node = node.next_node
       end
@@ -45,12 +45,12 @@ class MyLinkedList
     :rtype: Void
 =end
   def add_at_head(val)
-    if @list
-      old_head = @list
-      @list = Node.new(val)
-      @list.add_next_node old_head
+    if @llist
+      old_head = @llist
+      @llist = Node.new(val)
+      @llist.add_next_node old_head
     else
-      @list = Node.new(val)
+      @llist = Node.new(val)
     end
   end
 
@@ -61,8 +61,8 @@ class MyLinkedList
     :rtype: Void
 =end
   def add_at_tail(val)
-    if @list
-      node = @list
+    if @llist
+      node = @llist
       while node.next_node
         node = list.next_node
       end
@@ -80,7 +80,7 @@ class MyLinkedList
     :rtype: Void
 =end
   def add_at_index(index, val)
-    if @list
+    if @llist
       if index == 0
         add_at_head(val)
       else
@@ -102,9 +102,9 @@ class MyLinkedList
     :rtype: Void
 =end
   def delete_at_index(index)
-    if @list
+    if @llist
       if index == 0
-        @list = @list.next_node
+        @llist = @llist.next_node
       else
         node = get(index)
         prev_node = get(index-1)

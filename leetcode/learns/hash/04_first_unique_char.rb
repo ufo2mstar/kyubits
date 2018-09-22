@@ -10,3 +10,20 @@
 #     s = "loveleetcode",
 #     return 2.
 #     Note: You may assume the string contain only lowercase letters.
+
+# @param {String} s
+# @return {Integer}
+def first_uniq_char(s)
+  uniq_hsh = {}
+  uniq_hsh.default = 0
+
+  s.chars.each{|c|
+    uniq_hsh[c]+=1
+  }
+
+  s.chars.each_with_index{|c,i|
+    return i if uniq_hsh[c] == 1
+  }
+
+  return -1
+end

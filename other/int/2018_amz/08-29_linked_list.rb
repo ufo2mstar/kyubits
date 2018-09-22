@@ -48,9 +48,7 @@ def two_list_merge node1, node2
       res == nil ? res = Node.new(node1.val) : res.add_next_node(Node.new(node1.val))
       node1 = node1.next_node
     end
-
   end
-
 end
 
 # heads = [node_1 .. node_n]

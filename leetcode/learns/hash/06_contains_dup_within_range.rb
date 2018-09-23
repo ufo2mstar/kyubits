@@ -32,7 +32,7 @@ end
 # @param {Integer[]} nums
 # @param {Integer} target
 # @return {Integer[]}
-def two_diff(numbers, target)
+def two_diff_old(numbers, target)
   set = {}
   numbers.each_with_index{|n,i|
     exp = target + n
@@ -41,6 +41,19 @@ def two_diff(numbers, target)
       return true if set[k]
     }
     set[n] = i
+  }
+  return false
+end
+
+
+# @param {Integer[]} nums
+# @param {Integer} target
+# @return {Integer[]}
+def two_diff(numbers, target)
+  numbers.each_with_index{|n,i|
+    next if i == 0
+    diff = n - numbers[i-1]
+    return true if diff <= target
   }
   return false
 end

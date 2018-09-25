@@ -87,3 +87,28 @@ def post_order_null_handle node, hsh
   hsh[key]+=1
   return key
 end
+
+
+
+# @param {TreeNode} root
+# @return {TreeNode[]}
+def find_duplicate_subtrees(root)
+  hsh = Hash.new(0)
+  post_order root,hsh
+
+  res = []
+  hsh.each{|k,v| res << k if v > 1}
+  res
+end
+
+def post_order node, hsh
+  return nil if node == nil
+  left = post_order node.left, hsh
+  right = post_order node.right, hsh
+
+  # key = "#{node.val},#{left},#{right}"
+  key = [node.val,left,right].compact.flatten
+
+  hsh[key]+=1
+  return key
+end

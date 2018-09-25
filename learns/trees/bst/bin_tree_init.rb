@@ -40,6 +40,13 @@ class BinTree
     @root = level_order_insert_util ary, i, n
   end
 
+  def flatten_tree
+    tree_ary = []
+    i=0
+    flatten_tree_util @root, i, tree_ary
+    tree_ary
+  end
+
   private
   def level_order_insert_util ary, i, n
     if i<n
@@ -53,6 +60,16 @@ class BinTree
     end
   end
 
+  def flatten_tree_util node, i, tree_ary
+    return if node.nil?
+    left_i = (2*i)+1
+    right_i = (2*i)+2
+    tree_ary[i] = node.data
+    # tree_ary[left_i] = nil if node.left
+    # tree_ary[right_i] = nil if node.right
+    flatten_tree_util node.left, left_i, tree_ary
+    flatten_tree_util node.right, right_i, tree_ary
+  end
 end
 
 

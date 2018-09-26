@@ -21,7 +21,7 @@
 
 # @param {String} s
 # @return {Integer}
-def length_of_longest_substring(s)
+def length_of_longest_substring_my(s)
   ary = s.chars
   set = Hash.new(0)
   max = 0
@@ -39,4 +39,23 @@ def length_of_longest_substring(s)
     max = [max,ub-lb].max
   end
   max
+end
+
+
+# @param {String} s
+# @return {Integer}
+def length_of_longest_substring(s)
+  map = Array.new(128,0)
+  head, tail, diff = 0,0,0
+  s = s.bytes
+  while(tail < s.size)
+    map[s[tail]] += 1
+    tail += 1
+    while(map[s[tail-1]] > 1)
+      map[s[head]] -= 1
+      head +=1
+    end
+    diff = [diff, tail-head].max
+  end
+  diff
 end

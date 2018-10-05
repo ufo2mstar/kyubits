@@ -29,24 +29,20 @@ def is_palindrome_diff_util(right)
   res
 end
 
-def is_palindrome_diff2_util(right)
-  # left = @head
-  return [true, @head] if right.nil?
-  # puts "#{right.data} , #{left.data}"
-  fuse, left = is_palindrome_diff2_util(right.next)
+def is_palindrome_diff2_util(right, left = nil)
+  left ||= right
+  return [true, left] if right.nil?
+  fuse, left = is_palindrome_diff2_util(right.next, left)
   return false unless fuse
-  # @left.data == right.data ? @left = @left.next : false
-  # if left
-    # puts "#{right.data} , #{left.data}"
-    [left.data == right.data, left.next]
-  # end
+  [left.data == right.data, left.next]
 end
 
 # // A wrapper over isPalindromeUtil()
 def is_palindrome(head)
   # is_palindrome_util(head) # nice
-  is_palindrome_diff_util(head) # good!
-  is_palindrome_diff2_util(head)
+  # is_palindrome_diff_util(head) # good!
+  res, kod = is_palindrome_diff2_util(head)
+  res
 end
 
 class Node

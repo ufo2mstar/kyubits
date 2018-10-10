@@ -44,12 +44,13 @@ def open_lock(deadends, target)
   step || -1
 end
 
-def attempt try, target, stop, step, mem
+def attempt try, target, stop, step, seen
   queue = [[try, step]]
+  repeat = 0
   while !queue.empty? do
     try, step = queue.shift
-    p try, queue.size
-    mem[try] = true
+    puts "try #{try} Q -#{queue.size}"
+    seen[try] = true
     next if stop[try]
     # p try
     return step if target == try
@@ -58,7 +59,8 @@ def attempt try, target, stop, step, mem
     8.times do |n|
       new = move(try, n)
       # p new
-      unless mem[new]
+      unless seen[new]
+        seen[new] = true
         old_queue << [new, step+1]
         if new_queue.empty?
           new_queue << [new, step+1]
@@ -72,12 +74,18 @@ def attempt try, target, stop, step, mem
             new_queue << [new, step+1]
           end
         end
+      else
+        repeat+=1
       end
-      mem[new] = true
     end
-    p old_queue,new_queue
-    queue+=new_queue # 28k
-    # queue+=old_queue # 31k
+    next if new_queue.empty?
+    puts "old_queue #{old_queue}"
+    puts "new_queue #{new_queue}"
+
+    # queue = queue + new_queue # 28k
+    # queue+=new_queue # 28k
+    queue+=old_queue # 31k
+    puts "repeat #{repeat}"
   end
   nil
 end

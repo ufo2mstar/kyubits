@@ -91,3 +91,6 @@ n=12
 n= 7168
 
 puts num_squares n
+
+
+# todo: https://leetcode.com/problems/perfect-squares/discuss/71488/Summary-of-4-different-solutions-(BFS-DP-static-DP-and-mathematics)

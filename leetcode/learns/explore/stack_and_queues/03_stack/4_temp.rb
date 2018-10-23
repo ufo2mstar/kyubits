@@ -51,15 +51,15 @@ def daily_temperatures(t)
   stack = []
   res = Array.new(t.size,0)
   t.each_with_index do |n,i|
-    if stack.empty? or n <= t[i-1]
-      stack.push i
-    else
+    # if stack.empty? or n <= t[i-1]
+    #   stack.push i
+    # else
       while !stack.empty? and n > t[stack[-1]]
         j = stack.pop
         res[j] = i-j
       end
       stack.push i
-    end
+    # end
   end
   res
 end

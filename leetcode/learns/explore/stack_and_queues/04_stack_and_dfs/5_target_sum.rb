@@ -45,19 +45,41 @@ def terrible_dfs(sum,array,target)
   end
 end
 
-def find_target_sum_ways(nums, s)
+def find_target_sum_ways_2(nums, s)
   @count = 0
-  dfs(0,0,nums,s)
+  dfs_2(0,0,nums,s)
   @count
 end
 
-def dfs(sum,i,ary,target)
+def dfs_2(sum,i,ary,target)
   if i < ary.size
     num = ary[i]
-    dfs(sum + num, i+1,ary,target)
-    dfs(sum - num, i+1,ary,target)
+    dfs_2(sum + num, i+1,ary,target)
+    dfs_2(sum - num, i+1,ary,target)
   elsif sum == target
     @count+=1
+  end
+end
+
+
+def find_target_sum_ways(nums, s)
+  @count = {}
+  dfs(0,0,nums,s,@count)
+end
+
+def dfs(sum,i,ary,target,count)
+  ways = 0
+  if count["#{i},#{sum}"].nil?
+    if i < ary.size
+      num = ary[i]
+      ways += dfs(sum + num, i+1,ary,target,count)
+      ways += dfs(sum - num, i+1,ary,target,count)
+      count["#{i},#{sum}"] = ways
+    else
+      return sum == target ? 1 : 0
+    end
+  else
+    count["#{i},#{sum}"]
   end
 end
 
@@ -70,3 +92,4 @@ nums = [35,34,21,14,46,49,36,7,17,39,41,12,38,18,8,31,10,22,39,11]
 s=26
 
 puts find_target_sum_ways(nums, s)
+

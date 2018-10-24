@@ -3,3 +3,5 @@
 gem 'ruby-graphviz'
 gem 'rspec'
 # end
+
+gem 'awesome_print'

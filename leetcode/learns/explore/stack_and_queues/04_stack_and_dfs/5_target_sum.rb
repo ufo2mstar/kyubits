@@ -22,6 +22,7 @@
 #     Your output answer is guaranteed to be fitted in a 32-bit integer.
 
 
+require 'awesome_print'
 
 # @param {Integer[]} nums
 # @param {Integer} s
@@ -62,26 +63,73 @@ def dfs_2(sum,i,ary,target)
 end
 
 
+# def find_target_sum_ways(nums, s)
+#   @count = {}
+#   dfs(0,0,nums,s,@count)
+# end
+#
+# def dfs(sum,i,ary,target,count)
+#   ways = 0
+#   if count["#{i},#{sum}"].nil?
+#     if i < ary.size
+#       num = ary[i]
+#       ways += dfs(sum + num, i+1,ary,target,count)
+#       ways += dfs(sum - num, i+1,ary,target,count)
+#       count["#{i},#{sum}"] = ways
+#     else
+#       return sum == target ? 1 : 0
+#     end
+#   else
+#     count["#{i},#{sum}"]
+#   end
+# end
+
+
+# @param {Integer[]} nums
+# @param {Integer} s
+# @return {Integer}
 def find_target_sum_ways(nums, s)
-  @count = {}
-  dfs(0,0,nums,s,@count)
+  min, max, len = 0, 0, 0
+  nums.each do |n|
+    min -= n
+    max += n
+    len += 1
+  end
+
+  return 0 if len == 0
+
+  if s < min || s > max
+    return 0
+  end
+
+  range = max - min + 1
+  dp = Array.new len
+  for i in (0..len-1)
+    dp[i] = Array.new range, 0
+  end
+
+  dp[0][min.abs + nums[0]] += 1
+  dp[0][min.abs - nums[0]] += 1
+
+  for i in (1..len-1)
+    for j in (0..range-1)
+      unless j - nums[i] < 0
+        dp[i][j] += dp[i-1][j-nums[i]]
+      end
+
+      unless j + nums[i] > range-1
+        dp[i][j] += dp[i-1][j+nums[i]]
+      end
+    end
+  end
+
+  # ap dp
+  width = dp.flatten.max.to_s.size+2
+  res = dp.map {|a| a.map { |i| i.to_s.rjust(width) }.join }
+  puts res
+  dp[len-1][min.abs + s]
 end
 
-def dfs(sum,i,ary,target,count)
-  ways = 0
-  if count["#{i},#{sum}"].nil?
-    if i < ary.size
-      num = ary[i]
-      ways += dfs(sum + num, i+1,ary,target,count)
-      ways += dfs(sum - num, i+1,ary,target,count)
-      count["#{i},#{sum}"] = ways
-    else
-      return sum == target ? 1 : 0
-    end
-  else
-    count["#{i},#{sum}"]
-  end
-end
 
 nums = [1,1,1,1,1]
 s = 3

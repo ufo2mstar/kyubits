@@ -17,6 +17,11 @@ describe :bin_compare do
       run_bin 100, 5
     end
     it 'should print res' do
+      run_bin 100, 50
+      run_bin 100, 51
+      run_bin 100, 52
+      run_bin 100, 53
+      run_bin 100, 54
       run_bin 100, 55
     end
     it 'should print res' do

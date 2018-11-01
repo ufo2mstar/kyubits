@@ -16,6 +16,7 @@ def bin_compare nums, x
 
 end
 
+# Target focus on only one item
 def bin1(nums, left, right, x)
   count = 0
   while left <= right
@@ -35,6 +36,7 @@ def bin1(nums, left, right, x)
   -1
 end
 
+# Min search space 2 items.. item and its right
 def bin2(nums, left, right, x)
   mid = nil
   count = 0
@@ -55,6 +57,7 @@ def bin2(nums, left, right, x)
   [mid, left, right]
 end
 
+# Min search space three! left,item,right
 def bin3(nums, left, right, x)
   mid = nil
   count = 0

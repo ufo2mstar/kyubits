@@ -62,3 +62,17 @@ def bin_find nums, x
   end
   -1
 end
+
+
+# @param {Integer[]} nums
+# @return {Integer}
+def pivot_index(nums)
+  tots = nums.reduce(:+)
+  left = 0
+  nums.each_with_index do |n,i|
+    right = tots - left - n
+    return i if left == right
+    left = left + n
+  end
+  -1
+end

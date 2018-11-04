@@ -1,14 +1,20 @@
 class Iterator
   attr_accessor :tree
 
-  def initialize bst
-    @tree = bst
+  def initialize bintree
+    @tree = bintree
     @stk = []
-    @stk << bst.root if bst.root
+    @stk << bintree.root if bintree.root
+    @ino_stk = []
+    left_seek bintree.root if bintree.root
   end
 
   def has_next?
     !@stk.empty?
+  end
+
+  def has_next_ino?
+    !@ino_stk.empty?
   end
 
   def next type
@@ -19,6 +25,8 @@ class Iterator
         inorder_next
       when /post/
         postorder_next
+      else
+        raise "unknown itr type passed: #{type}"
     end
   end
 
@@ -31,18 +39,29 @@ class Iterator
     end
   end
 
+  def postorder_next
+    if has_next?
+      node = @stk.pop
+      @stk << node.left if node.left
+      @stk << node.right if node.right
+      node.data
+    end
+  end
+
   def inorder_next
     if has_next?
-      node = @stk[-1]
-      if node.left
-        while node.left do
-          node = node.left
-          @stk << node
-        end
-      else
-        @stk << node.right if node.right
-      end
+      node = @ino_stk.pop
+      left_seek node.right if node.right
       node.data
+    end
+  end
+
+  private
+  def left_seek node
+    @ino_stk << node if node
+    while node.left do
+      node = node.left
+      @ino_stk << node
     end
   end
 

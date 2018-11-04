@@ -39,6 +39,15 @@ describe Iterator do
         end
         expect(res).to eq exp
       end
+      it 'next in' do
+        bin_tree.show_tree
+        exp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        res = []
+        while itr.has_next_ino?
+          res << itr.next('in')
+        end
+        expect(res).to eq exp
+      end
       it 'next post' do
         bin_tree.show_tree
         exp = [6, 4, 2, 1, 3, 5, 8, 7, 10, 9, 11]

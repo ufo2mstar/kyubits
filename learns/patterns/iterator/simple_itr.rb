@@ -25,21 +25,24 @@ class Iterator
 end
 
 
-class PreorderIterator
+class OrderIterator
   attr_accessor :tree
 
   def initialize bintree
     @tree = bintree
     @stk = []
-    @stk << bintree.root if bintree.root
   end
 
   def has_next?
     !@stk.empty?
   end
+end
 
-  def has_next_ino?
-    !@stk.empty?
+class PreorderIterator < OrderIterator
+
+  def initialize bintree
+    super bintree
+    @stk << bintree.root if bintree.root
   end
 
   def next
@@ -54,17 +57,11 @@ class PreorderIterator
 end
 
 
-class InorderIterator
-  attr_accessor :tree
+class InorderIterator < OrderIterator
 
   def initialize bintree
-    @tree = bintree
-    @stk = []
+    super bintree
     left_seek bintree.root if bintree.root
-  end
-
-  def has_next?
-    !@stk.empty?
   end
 
   def next
@@ -87,17 +84,11 @@ class InorderIterator
 end
 
 
-class PostorderIterator
-  attr_accessor :tree
+class PostorderIterator < OrderIterator
 
   def initialize bintree
-    @tree = bintree
-    @stk = []
+    super bintree
     fill_stk bintree.root if bintree.root
-  end
-
-  def has_next?
-    !@stk.empty?
   end
 
   def next

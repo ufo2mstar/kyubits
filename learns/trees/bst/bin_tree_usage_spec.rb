@@ -10,6 +10,7 @@ describe 'BinTree show test' do
 
     it "add 10 vals LO" do
       ary = [0,0,0,0,nil,nil,0,nil,nil,nil,0]
+      ary = [6,4,5,2,3,1,8,7,10,9,11]
       bin_tree.insert_level_order ary
       bin_tree.show_tree
       # expect(bin_tree.size).to equal ary.size
@@ -17,7 +18,7 @@ describe 'BinTree show test' do
 
     it "add 10 vals BST" do
       # ary = (1..9).to_a
-      ary = [6,4,5,2,3,1]
+      ary = [6,4,5,2,3,1,8,7,10,9,11]
       bin_tree.insert_bst ary
       # expect(bin_tree.insert_bst ary).to raise_error RuntimeError
       bin_tree.show_tree

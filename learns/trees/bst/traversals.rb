@@ -3,14 +3,14 @@ module Traversals
   def pre_order node, &block
     return if node.nil?
     block.call(node) if block_given?
-    in_order(node.left,&block)
-    in_order(node.right,&block)
+    pre_order(node.left,&block)
+    pre_order(node.right,&block)
   end
 
   def post_order node, &block
     return if node.nil?
-    in_order(node.left,&block)
-    in_order(node.right,&block)
+    post_order(node.left,&block)
+    post_order(node.right,&block)
     block.call(node) if block_given?
   end
 

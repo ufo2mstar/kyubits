@@ -93,7 +93,7 @@ class PostorderIterator
   def initialize bintree
     @tree = bintree
     @stk = []
-    left_seek bintree.root if bintree.root
+    fill_stk bintree.root if bintree.root
   end
 
   def has_next?
@@ -103,18 +103,15 @@ class PostorderIterator
   def next
     if has_next?
       node = @stk.pop
-      left_seek node.right if node.right
       node.data
     end
   end
 
   private
-  def left_seek node
+  def fill_stk node
     @stk << node if node
-    while node.left do
-      node = node.left
-      @stk << node
-    end
+    fill_stk node.right if node.right
+    fill_stk node.left if node.left
   end
 
 end

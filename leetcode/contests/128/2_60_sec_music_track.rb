@@ -99,7 +99,7 @@ def num_pairs_divisible_by60(time)
   hsh.keys.each do |a|
     sums[a] += ncr(hsh[a],2) if (a % 60 == 0 and hsh[a] > 1)
   end
-  # p sums
+  p sums
   # p sums.keys.sort.reverse
   hsh.keys.combination(2).each {|a, b|
     # p [a,b,a+b]

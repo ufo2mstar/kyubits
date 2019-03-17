@@ -39,3 +39,22 @@ def reverse_list_itr(head)
 
   head
 end
+
+
+# @param {ListNode} head
+# @return {ListNode}
+def reverse_list(head)
+  return unless head
+  rec_flip head, nil
+end
+
+def rec_flip head, prev
+  if head.next
+    next_node = head.next
+    head.next = prev
+    rec_flip next_node, head
+  else
+    head.next = prev
+    return head
+  end
+end

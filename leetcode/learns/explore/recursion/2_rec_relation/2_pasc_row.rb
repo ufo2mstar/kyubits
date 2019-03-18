@@ -18,18 +18,24 @@
 # @param {Integer} row_index
 # @return {Integer[]}
 def get_row(r)
-  @pasc = Array.new(r) {Array.new(r)}
+  @pasc = Array.new(r+1) {Array.new(r+1)}
   ans = []
-  r.times{|i| ans << rec(r,i)}
+  (r+1).times{|i| ans << rec(r,i)}
   ans
 end
 
 def rec i,j
-  p [i,j]
+  # p [i,j]
+  # p @pasc
   return @pasc[i][j] if @pasc[i][j]
   (return @pasc[i][j] = 1) if j == 0 or j == i
-  return rec(i-1,j-1) + rec(i-1,j)
+  return @pasc[i][j] = (rec(i-1,j-1) + rec(i-1,j))
 end
 
 r = 3
+r = 4
+r = 5
+r = 15
+r = 25
 p get_row(r)
+

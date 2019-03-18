@@ -1,3 +1,6 @@
+
+# sample test 23280720465733
+
 def cellCompete(states, days)
   # WRITE YOUR CODE HERE
   today = states

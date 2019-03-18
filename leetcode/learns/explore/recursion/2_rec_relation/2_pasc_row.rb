@@ -20,13 +20,14 @@
 def get_row(r)
   @pasc = Array.new(r) {Array.new(r)}
   ans = []
-  r.times{|i| ans[i] = rec(i,r)}
+  r.times{|i| ans << rec(r,i)}
   ans
 end
 
 def rec i,j
+  p [i,j]
   return @pasc[i][j] if @pasc[i][j]
-  (return @pasc[i][j] = 1) if i == 0 or j == i
+  (return @pasc[i][j] = 1) if j == 0 or j == i
   return rec(i-1,j-1) + rec(i-1,j)
 end
 

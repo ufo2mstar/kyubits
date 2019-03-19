@@ -32,9 +32,37 @@
 
 # @param {Integer} n
 # @return {Integer}
-def fib(n)
+def fib_1(n)
   @fib ||= {}
   return n if n < 2
   return @fib[n] = fib(n-1) + fib(n-2)
 end
 
+# Runtime: 32 ms
+# Memory Usage: 9.4 MB
+#
+def fib_2 n
+  a,b = 0,1
+  n.times do
+    a,b = b,a+b
+  end
+  a
+end
+
+
+# Runtime: 376 ms
+# Memory Usage: 9.4 MB
+# @param {Integer} n
+# @return {Integer}
+def fib(n)
+  hsh = {}
+  fib_rec n,hsh
+end
+
+# Runtime: 32 ms
+# Memory Usage: 9.4 MB
+def fib_rec n,hsh
+  return n if n < 2
+  return hsh[n] if hsh[n]
+  return hsh[n] = fib_rec(n-1,hsh) + fib_rec(n-2,hsh)
+end

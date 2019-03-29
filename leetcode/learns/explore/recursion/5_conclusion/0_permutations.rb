@@ -1,23 +1,41 @@
-
-
-
-def permute_helper str, prefix
+def permute_helper_chomp str, prefix
   if str.empty?
-    print prefix
+    puts prefix
   else
-    # append to prefix
-    c = str[0]
-    prefix += c
-    # explore
-    permute_helper str[1..-1], prefix
-    # prepend
-    prefix.chomp
+    (str.length).times do |i|
+      # append to prefix
+      c = str[i]
+      prefix += c
+      new_str = str.delete(c)
+      # explore
+      permute_helper new_str, prefix
+      # prepend
+      prefix.chomp
+    end
+  end
+end
+
+def permute_helper_swap str, prefix
+  if str.empty?
+    puts prefix
+  else
+    (str.length).times do |i|
+      # append to prefix
+      c = str[i]
+      prefix += c
+      new_str = str.delete(c)
+      # explore
+      permute_helper new_str, prefix
+      # prepend
+      prefix.chomp
+    end
   end
 end
 
 
 def permute str
-  permute_helper str, ""
+  # permute_helper_chomp str, ""
+  permute_helper_swap str, ""
 end
 
 

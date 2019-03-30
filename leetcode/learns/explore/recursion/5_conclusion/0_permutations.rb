@@ -63,4 +63,5 @@ end
 
 
 # permute "abcd"
-permute "abcd123"
+# permute "abcd123"
+permute "123"

@@ -9,7 +9,7 @@ describe 'BinTree test' do
 
     it "add 10 vals" do
       bin_tree.insert_level_order ary
-      bin_tree.post_order
+      bin_tree.post_order bin_tree.root
       expect(bin_tree.size).to equal ary.size
     end
   end

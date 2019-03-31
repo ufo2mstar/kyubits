@@ -10,7 +10,7 @@ describe 'BinTree test' do
     it "add 10 vals" do
       bin_tree.insert_input_order ary
       expect(bin_tree.size).to equal ary.size
-      p bin_tree.flatten_tree
+      # p bin_tree.flatten_tree
       ans = [5, 3, 6, 2, 4, nil, 7, 1, nil, nil, nil, nil, nil, nil, 9, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 8]
       expect(bin_tree.flatten_tree).to match_array ans
     end
@@ -23,7 +23,20 @@ describe 'BinTree test' do
     it "add 10 vals" do
       bin_tree.insert_input_order ary
       expect(bin_tree.size).to equal ary.size
-      p bin_tree.flatten_tree
+      # p bin_tree.flatten_tree
+      ans = [2, 1, 3]
+      expect(bin_tree.flatten_tree).to match_array ans
+    end
+  end
+  
+  context "bst order insert test" do
+    let(:ary) {[2, 3, 1]}
+    let(:bin_tree) {BinTree.new}
+
+    it "add 10 vals" do
+      bin_tree.insert_input_order ary
+      expect(bin_tree.size).to equal ary.size
+      # p bin_tree.flatten_tree
       ans = [2, 1, 3]
       expect(bin_tree.flatten_tree).to match_array ans
     end
@@ -36,7 +49,7 @@ describe 'BinTree test' do
     it "add 10 vals" do
       bin_tree.insert_input_order ary
       expect(bin_tree.size).to equal ary.size
-      p bin_tree.flatten_tree
+      # p bin_tree.flatten_tree
       ans = [1, nil, 2, nil, nil, nil, 3]
       expect(bin_tree.flatten_tree).to match_array ans
     end

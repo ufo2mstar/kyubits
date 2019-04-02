@@ -54,7 +54,7 @@ heads = [n1, n2, n3, n4]
 
 res = merge_lists heads
 
-while res.next
+while res
   print "#{res.val} -> "
   res = res.next
 end

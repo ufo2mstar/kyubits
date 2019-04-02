@@ -144,7 +144,7 @@ heads = [n1, n2, n3, n4]
 
 res = merge_lists heads
 
-while res.next_node
+while res
   print "#{res.val} -> "
   res = res.next_node
 end

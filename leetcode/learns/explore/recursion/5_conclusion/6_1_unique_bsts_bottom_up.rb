@@ -63,7 +63,6 @@ def generate(start, last)
   # res
 end
 
-
 def flatten_trees res
   ary = []
   res.each {|root| ary << flatten_tree(root)}

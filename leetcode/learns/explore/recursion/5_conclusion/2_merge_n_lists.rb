@@ -19,14 +19,25 @@ def merge_two_lists(l1, l2)
   l1 or l2
 end
 
+def n_list_technique(heads)
+  lowest, others = [],[]
+  heads.each do |list|
+    lowest = list
+  end
+end
+
 def merge_lists heads
   return if heads.empty?
   return heads[0] if heads.size == 1
   result = nil
+  two_list_technique heads, result
+  result
+end
+
+def two_list_technique(heads,result)
   heads.each do |list|
     result = merge_two_lists result, list
   end
-  result
 end
 
 def make_ll(ary)

@@ -88,9 +88,18 @@ def flatten_tree_util node, i, tree_ary
 end
 
 require 'awesome_print'
-# p generate_trees 1
-# p generate_trees 2
-p generate_trees 3
-# p generate_trees 4
-# p generate_trees 5
-# p generate_trees 10
+require 'pp'
+# require 'combos'
+
+trees =
+# generate_trees 1
+# generate_trees 2
+ generate_trees 3
+# generate_trees 4
+# generate_trees 5
+# generate_trees 10
+
+# ap trees
+# pp trees
+# ap flatten_trees trees
+pp flatten_trees trees

@@ -12,7 +12,7 @@ def bin_compare nums, x
   left, right = 0, nums.size - 1
   # t1 = bin1 nums, left, right, x
   t1, left1, right1 = binary_search nums, left, right, x
-  # puts "mid1 = #{t1}, start ( left=#{left}, right=#{right} ) -> left_res=#{left1}, right_res=#{right1}"
+  puts "mid1 = #{t1}, start ( left=#{left}, right=#{right} ) -> left_res=#{left1}, right_res=#{right1}"
   puts "mid = #{t1}"
   t1
 end

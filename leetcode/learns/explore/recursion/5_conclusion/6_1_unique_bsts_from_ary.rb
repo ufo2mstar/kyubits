@@ -11,56 +11,39 @@ end
 
 def generate_trees n
   return [] if n == 0
-  # res = generate(1, n)
-  res = generate_cached(1, n, {})
-  res
+  res = generate_from_ary((1..n).to_a)
 end
 
-def generate_cached(start, last, cache)
+def generate_from_ary(ary)
   res = []
-  # res = [nil]
-  if cache[[start, last]]
-    cache[[start, last]]
+  if ary.size == 0
+    [nil]
+  elsif ary.size == 1
+    node = TreeNode.new ary[0]
+    res << node
   else
-    (start..last).each do |root|
+    ary.each_index do |i|
+      left_trees, right_trees = [nil], [nil]
 
-      leftTrees = generate_cached(start, root - 1, cache)
-      rightTrees = generate_cached(root + 1, last, cache)
+      right_trees = generate_from_ary(ary[i + 1..-1]) if i != ary.size
+      left_trees = generate_from_ary(ary[0..i - 1]) if i != 0
 
-      leftTrees.each do |left|
-        rightTrees.each do |right|
-          node = TreeNode.new(root)
+      left_trees.each do |left|
+        right_trees.each do |right|
+          node = TreeNode.new ary[i]
           node.left = left
           node.right = right
-
           res << node
         end
       end
     end
-    cache[[start, last]] = res.empty? ? [nil] : res
-  end
-end
-
-def generate(start, last)
-  res = []
-  # res = [nil]
-  (start..last).each do |root|
-
-    leftTrees = generate(start, root - 1)
-    rightTrees = generate(root + 1, last)
-
-    leftTrees.each do |left|
-      rightTrees.each do |right|
-        node = TreeNode.new(root)
-        node.left = left
-        node.right = right
-
-        res << node
-      end
-    end
   end
   res.empty? ? [nil] : res
-  # res
+end
+
+def generate_cached(ary, i, res)
+  res = []
+  # res = [nil]
 end
 
 def flatten_trees res
@@ -94,12 +77,14 @@ require 'pp'
 trees =
 # generate_trees 1
 # generate_trees 2
- generate_trees 3
+#     generate_trees 3
 # generate_trees 4
-# generate_trees 5
+generate_trees 5
 # generate_trees 10
 
 # ap trees
-# pp trees
+pp trees
 # ap flatten_trees trees
-pp flatten_trees trees
+# pp flatten_trees trees
+
+p trees.size

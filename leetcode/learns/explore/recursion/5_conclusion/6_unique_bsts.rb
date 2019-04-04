@@ -129,6 +129,11 @@ def add_to_tree(root, x)
   end
 end
 
+def flatten_trees res
+  ary = []
+  res.each {|root| ary << flatten_tree(root)}
+  ary
+end
 
 def flatten_tree root
   tree_ary = []
@@ -174,3 +179,4 @@ end
 
 n = 3
 p generate_trees(n)
+p flatten_trees generate_trees(n)

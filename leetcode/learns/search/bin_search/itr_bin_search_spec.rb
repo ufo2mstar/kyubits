@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'recursive_bin_search'
+require_relative 'itr_bin_search'
 
 def run_bin l, r, x, exp
   ary = (l..r).to_a
@@ -17,7 +17,7 @@ def bin_compare nums, x
   t1
 end
 
-describe :bin_test_rec do
+describe :bin_test_itr do
   context "simple" do
     it 'should print res' do
       run_bin 0, 10, 5, 5

@@ -54,9 +54,10 @@ def my_pow(x, n)
   end
 end
 
-p my_pow 2,10
+p my_pow 2.0,10
 p my_pow 2.0,-100
 p my_pow 2,1000
+p my_pow 2.0,1000
 
 
 # Runtime: 36 ms

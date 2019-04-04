@@ -30,6 +30,13 @@ describe :bin_compare do
       it 'should print res' do
         run_bin 10, 100, 33, 23
       end
+
+      it 'should print loop res right!' do
+        l, r = 10, 25
+        (l..r).each do |i|
+          run_bin l, r, i + l, (i + l) > r ? -1 : i
+        end
+      end
     end
   end
 end

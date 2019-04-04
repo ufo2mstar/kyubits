@@ -25,11 +25,18 @@ def binarySearch(arr, l, r, x)
   -1
 end
 
+# def binary_search(arr, l, r, target)
+#   if l <= r
+#     mid = l + (r - l) / 2
+#     return mid if (arr[mid] == target)
+#     return (arr[mid] > target) ? binary_search(arr, l, mid - 1, target) : binary_search(arr, mid + 1, r, target)
+#   end
+#   -1
+# end
+
 def binary_search(arr, l, r, target)
-  if l <= r
-    mid = l + (r - l) / 2
-    return mid if (arr[mid] == target)
-    return (arr[mid] > target) ? binary_search(arr, l, mid - 1, target) : binary_search(arr, mid + 1, r, target)
-  end
-  -1
+  return -1 if l > r
+  mid = l + (r - l) / 2
+  return mid if (arr[mid] == target) # Found match!
+  (arr[mid] > target) ? binary_search(arr, l, mid - 1, target) : binary_search(arr, mid + 1, r, target)
 end

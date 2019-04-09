@@ -50,13 +50,17 @@
 #   end
 # end
 
+class NoBadVersion < StandardError
+end
+
+
 
 def find_bad_version(n)
   start = 0
   last = n
 
   return start if is_bad_version(start)
-  raise NoBadVersion('all good') unless is_bad_version(last)
+  puts 'all good' unless is_bad_version(last)
 
   while start <= last
     mid = start + (last-start) / 2
@@ -68,3 +72,11 @@ def find_bad_version(n)
     end
   end
 end
+
+def is_bad_version n
+  n >= 5
+end
+
+p find_bad_version 1
+p find_bad_version 5
+p find_bad_version 8

@@ -36,36 +36,45 @@
 # Enter your code here. Read input from STDIN. Print output to STDOUT
 
 
-def fib_get n,a,b
+def fib_get n, a, b
   @fib = []
   @fib[1] = a.size
   @fib[2] = b.size
-  p fib_lim n,@fib
-  p @fib
+  i = fib_lim n, @fib
+  # p @fib
+  fib_find n, i, a, b, @fib
 end
 
-def fib_lim(n,fib)
-  if n <= fib[-1]
-    fib.size-1
+def fib_find(n, i, a, b, fib)
+  if i == 1
+    a[n-1]
+  elsif i == 2
+    b[n-1]
   else
-    fib << fib[-1]+fib[-2]
-    fib_lim n,fib
+    an = fib[i - 2]
+    # bn = fib[i - 1]
+    if n <= an
+      fib_find(n, i - 2, a, b, fib)
+    else
+      fib_find(n - an, i - 1, a, b, fib)
+    end
   end
 end
 
-
-
-
-
-
-
-
+def fib_lim(n, fib)
+  if n <= fib[-1]
+    fib.size - 1
+  else
+    fib << fib[-1] + fib[-2]
+    fib_lim n, fib
+  end
+end
 
 
 q = gets.chomp.to_i
 
 q.times do
-  a,b,n = gets.chomp.split
-  p fib_get n.to_i,a,b
+  a, b, n = gets.chomp.split
+  p fib_get n.to_i, a, b
 end
 

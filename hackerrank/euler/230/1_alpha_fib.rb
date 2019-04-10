@@ -37,12 +37,22 @@
 
 
 def fib_get n, a, b
-  @fib = []
-  @fib[1] = a.size
-  @fib[2] = b.size
-  i = fib_lim n, @fib
-  # p @fib
-  fib_find n, i, a, b, @fib
+  # return a[n-1] if n < a.size
+  # return b[n-1] if n-a.size < b.size
+  fib = []
+  fib[1] = a.size
+  fib[2] = b.size
+  i = fib_lim n, fib
+  fib_find n, i, a, b, fib
+end
+
+def fib_lim(n, fib)
+  if n <= fib[-1]
+    fib.size - 1
+  else
+    fib << fib[-1] + fib[-2]
+    fib_lim n, fib
+  end
 end
 
 def fib_find(n, i, a, b, fib)
@@ -61,20 +71,12 @@ def fib_find(n, i, a, b, fib)
   end
 end
 
-def fib_lim(n, fib)
-  if n <= fib[-1]
-    fib.size - 1
-  else
-    fib << fib[-1] + fib[-2]
-    fib_lim n, fib
-  end
-end
 
 
 q = gets.chomp.to_i
 
 q.times do
   a, b, n = gets.chomp.split
-  p fib_get n.to_i, a, b
+  puts fib_get n.to_i, a, b
 end
 

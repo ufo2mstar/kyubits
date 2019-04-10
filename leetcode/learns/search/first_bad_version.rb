@@ -77,6 +77,10 @@ def is_bad_version n
   n >= 5
 end
 
-p find_bad_version 1
-p find_bad_version 5
-p find_bad_version 8
+10.times do |i|
+  p "#{i} , #{is_bad_version i}"
+end
+
+# p find_bad_version 1
+# p find_bad_version 5
+# p find_bad_version 8

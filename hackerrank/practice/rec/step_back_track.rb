@@ -1,6 +1,5 @@
 # Complete the stepPerms function below.
-def stepPerms(n)
-  jumps = [1, 2, 3]
+def stepPerms(n, jumps = [1, 2, 3])
   res = step(n, jumps, {})
   res % (7 + 10e9).to_i
 end
@@ -21,5 +20,5 @@ def step n, jumps, mem
   end
 end
 
-n = 7
-p stepPerms(n)
+# n = 7
+# p stepPerms(n)

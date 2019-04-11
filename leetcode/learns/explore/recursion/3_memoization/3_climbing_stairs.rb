@@ -37,7 +37,7 @@ def climb n
   climb(n-1) + climb(n-2)
 end
 
-p climb_stairs_brute 81
+# p climb_stairs_brute 81
 
 
 # @param {Integer} n
@@ -54,5 +54,5 @@ def climb_cache n,hsh
   hsh[n] = climb_cache(n-1,hsh) + climb_cache(n-2,hsh)
 end
 
-p climb_stairs_rec 18
+# p climb_stairs_rec 18
 

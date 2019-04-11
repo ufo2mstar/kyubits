@@ -6,8 +6,8 @@ require 'stringio'
 
 # Complete the maxCircle function below.
 def maxCircle(queries)
-  @size = {}
   @parent = {}
+  @size = {}
   @node_id = {}
   @id_node = {}
   id = 1
@@ -15,8 +15,8 @@ def maxCircle(queries)
   queries.each do |edge|
     a, b = edge
 
-    id = new_node a, id, parent, node_id, size unless node_id[a]
-    id = new_node b, id, parent, node_id, size unless node_id[b]
+    id = new_node a, id unless @node_id[a]
+    id = new_node b, id unless @node_id[b]
     # node_id[a] = id += 1 unless node_id[a]
     # node_id[b] = id += 1 unless node_id[b]
     # size[a] ||= 1
@@ -24,19 +24,23 @@ def maxCircle(queries)
     # parent[a] = node_id[a] unless parent[a]
     # parent[b] = node_id[b] unless parent[b]
 
-    union_find a, b, parent, node_id, size
-    res << max_val(size)
+    union_find a, b
+    res << max_val(@size)
     # p res
   end
   res
 end
 
-def new_node node, id, parent, node_id, size
+def new_node node, id
+  parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+
   node_id[node] = id
-  node_id[node] = id
+  id_node[id] = node
+
   size[node] = 1
-  parent[node] = node_id[node]
-  p "node_id: #{node_id} , size #{size}, parent #{parent}"
+  parent[node] = node
+
+  # puts "size #{size}, parent #{parent}, node_id: #{node_id} , id_node: #{id_node} "
   id + 1
 end
 
@@ -44,26 +48,30 @@ def max_val(hsh)
   hsh.values.max
 end
 
-def union_find a, b, parent, node_id, size
-  if find(a, parent, node_id, size) != find(b, parent, node_id, size)
-    union a, b, parent, node_id, size
+def union_find a, b
+  parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+  if find(a) != find(b)
+    union a, b
   end
 end
 
-def union node1, node2, parent, node_id, size
-  root1 = find node1, parent, node_id, size
-  root2 = find node2, parent, node_id, size
+def union node1, node2
+  parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+
+  root1 = find node1
+  root2 = find node2
 
   min_root, max_root = size[root1] < size[root2] ? [root1, root2] : [root2, root1]
 
-  parent[min_root] = node_id[parent[max_root]]
+  parent[min_root] = parent[max_root]
   size[max_root] += size[min_root]
 end
 
-def find node, parent, node_id, size
-  # root = node_id[node]
+def find node
+  parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+
   root = node
-  while node_id[root] != parent[root]
+  while root != parent[root]
     root = parent[root]
   end
 
@@ -84,7 +92,8 @@ q = gets.to_i
 queries = Array.new(q)
 
 q.times do |i|
-  queries[i] = gets.rstrip.split(' ').map(&:to_i)
+  # queries[i] = gets.rstrip.split(' ').map(&:to_i)
+  queries[i] = gets.rstrip.split(' ')
 end
 
 ans = maxCircle queries

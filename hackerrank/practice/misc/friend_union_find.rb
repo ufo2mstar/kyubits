@@ -15,27 +15,26 @@ def maxCircle(queries)
   queries.each do |edge|
     a, b = edge
 
-    id = new_node a, id unless @node_id[a]
-    id = new_node b, id unless @node_id[b]
-    # node_id[a] = id += 1 unless node_id[a]
-    # node_id[b] = id += 1 unless node_id[b]
-    # size[a] ||= 1
-    # size[b] ||= 1
-    # parent[a] = node_id[a] unless parent[a]
-    # parent[b] = node_id[b] unless parent[b]
+    id = new_node a, id unless @parent[a]
+    id = new_node b, id unless @parent[b]
 
     union_find a, b
     res << max_val(@size)
-    # p res
+    # p res.size
+    p sizes(res)
   end
   res
+end
+
+def sizes res
+  "parents: #{@parent.size} .. #{res[-1]}"
 end
 
 def new_node node, id
   parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
 
-  node_id[node] = id
-  id_node[id] = node
+  # node_id[node] = id
+  # id_node[id] = node
 
   size[node] = 1
   parent[node] = node
@@ -49,7 +48,14 @@ def max_val(hsh)
 end
 
 def union_find a, b
-  parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+  # parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+  if (root1 = find(a)) != (root2 = find(b))
+    union root1,root2
+  end
+end
+
+def union_find_old a, b
+  # parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
   if find(a) != find(b)
     union a, b
   end
@@ -69,14 +75,27 @@ end
 
 def find node
   parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
+  if parent[node] == node
+    node
+  else
+    parent[node] = find parent[node]
+  end
+end
+
+def find_itr node
+  parent, size, node_id, id_node = @parent, @size, @node_id, @id_node
 
   root = node
   while root != parent[root]
     root = parent[root]
   end
 
-  # path compression later
-  #
+  # path compression
+  while node != root
+    temp = parent[node]
+    parent[node] = root
+    node = temp
+  end
 
   root
 end

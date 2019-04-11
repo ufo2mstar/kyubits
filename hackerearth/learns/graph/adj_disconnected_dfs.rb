@@ -24,7 +24,7 @@ def dfs(node, adj, visited)
 end
 
 
-def dfs_alt(node, adj, visited, conn_map, conn)
+def dfs_alt(node, adj, visited)
   visited[node] = true
   adj[node].each do |child|
     dfs(child, adj, visited) unless visited[child]
@@ -52,11 +52,8 @@ visited = Array.new(nodes + 1) {false}
 head = gets.chomp.to_i
 
 # dfs(head, adj, visited)
-#
-conn = []
+dfs_alt(head, adj, visited)
 
-dfs_alt(head, adj, visited, conn)
-
-p conn
+p count_unvisited(visited)
 
 

@@ -70,3 +70,6 @@ non_palin.next.next.next.next.next = Node.new 1
 puts is_palindrome palin
 @head = non_palin
 puts is_palindrome non_palin
+
+
+

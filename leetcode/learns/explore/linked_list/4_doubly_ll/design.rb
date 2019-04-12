@@ -18,7 +18,7 @@ class MyLinkedList
 =begin
     Get the value of the index-th node in the linked list. If the index is invalid, return -1.
     :type index: Integer
-    :rtyunipe: Integer
+    :rtype: Integer
 =end
   def get(index)
     return nil if index < 0

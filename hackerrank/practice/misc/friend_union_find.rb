@@ -12,6 +12,7 @@ def maxCircle(queries)
   @id_node = {}
   id = 1
   res = []
+  @max_size = 0
   queries.each do |edge|
     a, b = edge
 
@@ -19,9 +20,10 @@ def maxCircle(queries)
     id = new_node b, id unless @parent[b]
 
     union_find a, b
-    res << max_val(@size)
+    # res << max_val(@size)
+    res << @max_size
     # p res.size
-    p sizes(res)
+    # p sizes(res)
   end
   res
 end
@@ -71,6 +73,7 @@ def union node1, node2
 
   parent[min_root] = parent[max_root]
   size[max_root] += size[min_root]
+  @max_size = [@max_size,size[max_root]].max
 end
 
 def find node

@@ -51,7 +51,18 @@ end
 
 ans = freqQuery queries
 
-puts ans
+# puts ans
+#
+# exp = File.readlines('test4ans')
+f = open('test4ans')
+exp = []
+f.each_line { |line| exp << line.chomp.to_i }
+f.close
+
+puts "#\tExp\tAns"
+(0...exp.size).each do|i|
+  puts "#{i}\t#{exp[i]}\t#{ans[i]}" if exp[i] != ans[i]
+end
 
 # fptr.write ans.join "\n"
 # fptr.write "\n"

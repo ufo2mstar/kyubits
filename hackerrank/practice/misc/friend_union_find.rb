@@ -19,9 +19,10 @@ def maxCircle(queries)
     id = new_node a, id unless @parent[a]
     id = new_node b, id unless @parent[b]
 
-    union_find a, b
-    # res << max_val(@size)
+    size = union_find(a, b) || 0
+    @max_size = [@max_size,size].max
     res << @max_size
+      # res << max_val(@size)
     # p res.size
     # p sizes(res)
   end
@@ -46,6 +47,7 @@ def new_node node, id
 end
 
 def max_val(hsh)
+  # Baaad idea.. O(N+N)
   hsh.values.max
 end
 
@@ -73,7 +75,6 @@ def union node1, node2
 
   parent[min_root] = parent[max_root]
   size[max_root] += size[min_root]
-  @max_size = [@max_size,size[max_root]].max
 end
 
 def find node

@@ -5,11 +5,11 @@ require 'stringio'
 
 # Complete the freqQuery function below.
 def freqQuery(queries)
-  @freq_map = Hash.new(){|h,k| h[k] = {}}
+  @freq_map = Hash.new {|h, k| h[k] = {}}
   @count_map = {}
   @count_map.default = 0
   res = []
-  queries.each do |type,x|
+  queries.each do |type, x|
     case type
     when 1
       add_to_ds x
@@ -17,6 +17,8 @@ def freqQuery(queries)
       remove_from_ds x
     when 3
       res << (@freq_map[x].size > 0 ? 1 : 0)
+    else
+      raise "whaaat??"
     end
   end
   res
@@ -42,7 +44,7 @@ def remove_from_ds num
 end
 
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+# fptr = File.open(ENV['OUTPUT_PATH'], 'w')
 
 q = gets.strip.to_i
 
@@ -54,7 +56,18 @@ end
 
 ans = freqQuery queries
 
-fptr.write ans.join "\n"
-fptr.write "\n"
+f = open('test4ans')
+exp = []
+f.each_line { |line| exp << line.chomp.to_i }
+f.close
 
-fptr.close()
+puts "#\tExp\tAns"
+(0...exp.size).each do|i|
+  puts "#{i}\t#{exp[i]}\t#{ans[i]}" if exp[i] != ans[i]
+end
+
+#
+# fptr.write ans.join "\n"
+# fptr.write "\n"
+#
+# fptr.close()

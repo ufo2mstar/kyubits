@@ -10,14 +10,18 @@ def countTriplets(arr, r)
   # arr.each_with_index{|x,i| hsh[x] +=1 }
   count = 0
 
-
   (arr).each_with_index{|x,n|
-    i,j,k = x,x*r,x*r*r
-    if n >= 2
-      jn,kn = hsh[j], hsh[k]
-      count += jn*kn
+    i,j,k = x/r**2 , x/r , x
+    hsh[x] += 1
+    if n > 1
+      if j == k
+        jn = hsh[j]
+        count += ((jn-2)*(jn-1))/2 if jn >=3
+      else
+        jn,kn = hsh[i], hsh[j]
+        count += jn*kn
+      end
     end
-    hsh[x] +=1
   }
   count
 end

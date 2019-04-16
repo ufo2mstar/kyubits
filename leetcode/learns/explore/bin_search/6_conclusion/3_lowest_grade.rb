@@ -44,30 +44,55 @@
 # @param {Character} target
 # @return {Character}
 def next_greatest_letter(letters, target)
-
+  letters.uniq!
+  n = letters.size - 1
+  return if n <= 0
+  letters[0] if target <= letters[0]
+  letters[0] if target >= letters[n]
+  bin_search_right letters, 0, n, target
 end
 
-def bin letters, target
-  l, r = 0, letters.size
-  mid = nil
+def bin_search_right ary, l, r, x
+  mid = 0
   while l < r
     mid = l + (r - l) / 2
-    if letters[mid] == target
+    if ary[mid] == x
+      r = mid+1
       break
+      # return ary[mid]
     else
-      if mid < val(target)
-        l = mid + 1
-      else
-        r = mid
-      end
+      ary[mid] > x ? (r = mid - 1) : (l = mid+1)
     end
   end
+  # n = ary[l] > x ? r : r + 1
+  v = [l,r].max
+  # v = mid
+  n = ary[v] > x ? v : v + 1
+  n >= ary.size ? ary[0] : ary[n]
 end
 
-def diff c, q
-  val = -> x {x.ord - 97}
-  [(val[q] - val[c]).abs, 26 - (val[q] - val[c]).abs].min
-end
+
+# def bin letters, target
+#   l, r = 0, letters.size
+#   mid = nil
+#   while l < r
+#     mid = l + (r - l) / 2
+#     if letters[mid] == target
+#       break
+#     else
+#       if mid < val(target)
+#         l = mid + 1
+#       else
+#         r = mid
+#       end
+#     end
+#   end
+# end
+#
+# def diff c, q
+#   val = -> x {x.ord - 97}
+#   [(val[q] - val[c]).abs, 26 - (val[q] - val[c]).abs].min
+# end
 
 # def val x
 #   x.ord - 97

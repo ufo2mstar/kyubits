@@ -44,6 +44,18 @@
 # @param {Character} target
 # @return {Character}
 def next_greatest_letter(letters, target)
+  # next_greatest_letter_64(letters, target)
+  next_greatest_letter_44(letters, target)
+  # next_greatest_letter_48(letters, target)
+  # next_greatest_letter_52(letters, target)
+  # next_greatest_letter_56(letters, target)
+end
+
+
+# @param {Character[]} letters
+# @param {Character} target
+# @return {Character}
+def next_greatest_letter_64(letters, target)
   letters.uniq!
   n = letters.size - 1
   return if n <= 0
@@ -57,15 +69,15 @@ def bin_search_right ary, l, r, x
   while l < r
     mid = l + (r - l) / 2
     if ary[mid] == x
-      r = mid+1
+      r = mid + 1
       break
       # return ary[mid]
     else
-      ary[mid] > x ? (r = mid - 1) : (l = mid+1)
+      ary[mid] > x ? (r = mid - 1) : (l = mid + 1)
     end
   end
   # n = ary[l] > x ? r : r + 1
-  v = [l,r].max
+  v = [l, r].max
   # v = mid
   n = ary[v] > x ? v : v + 1
   n >= ary.size ? ary[0] : ary[n]
@@ -97,3 +109,85 @@ end
 # def val x
 #   x.ord - 97
 # end
+
+
+# ans:
+#
+# sample 44 ms submission
+#
+# @param {Character[]} letters
+# @param {Character} target
+# @return {Character}
+def next_greatest_letter_44(letters, target)
+  letters.bsearch {|l| l > target} || letters.min
+end
+
+
+# sample 48 ms submission
+#
+# @param {Character[]} letters
+# @param {Character} target
+# @return {Character}
+def next_greatest_letter_48(letters, target)
+  array = "abcdefghijklmnopqrstuvwxyz".split("")
+  min = 0
+  max = letters.length - 1
+  while min <= max
+    mid = min + (max - min) / 2
+    if letters[mid] == target
+      min = mid + 1
+      if letters[max] == target
+        min = max + 1
+        break
+      end
+    elsif array.index(letters[mid]) <= array.index(target)
+      min = mid + 1
+    else
+      max = mid - 1
+    end
+  end
+  letters[min % letters.length]
+end
+
+# sample 52 ms submission
+#
+# @param {Character[]} letters
+# @param {Character} target
+# @return {Character}
+def next_greatest_letter_52(l, t)
+  l.uniq!
+  i = l.bsearch_index {|x| x >= t}
+  if i.nil?
+    l[0]
+  elsif l[i] != t
+    l[i]
+  else
+    l[(i + 1) % l.size]
+  end
+end
+
+
+# sample 56 ms submission
+# @param {Character[]} letters
+# @param {Character} target
+# @return {Character}
+def next_greatest_letter_56(letters, target)
+  left = 0
+  right = letters.size - 1
+  while (left + 1 < right)
+    mid = (left + right) / 2
+    # p "left #{left} right #{right} mid #{mid}"
+    # if (letters[mid-1] <= target && letters[mid+1] > target)
+    #   return letters[mid]
+    if letters[mid] <= target
+      left = mid
+    else
+      right = mid
+    end
+  end
+  # puts "skonczylo sie na left #{left} i right #{right}"
+
+  return letters[left + 1] if letters[left] <= target && letters[right] > target
+  return letters[0] if letters[right] <= target
+  return letters[left]
+end

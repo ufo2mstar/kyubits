@@ -74,3 +74,7 @@ for a_i in (0..n-1)
   puts get_median[HEAP.list, a_i+1].to_f
 end
 
+for a_i in (0..n-1)
+  # p HEAP.list
+  puts get_median[HEAP.list, a_i+1].to_f
+end

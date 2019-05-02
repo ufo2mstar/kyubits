@@ -5,3 +5,6 @@ gem 'rspec'
 # end
 
 gem 'awesome_print'
+
+# tools
+gem 'thor'

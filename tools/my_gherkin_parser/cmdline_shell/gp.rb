@@ -29,6 +29,14 @@ class GherkinParserCmd < Thor
   def gpp
     puts "running GPTOOL @ #{PRESET_LOCS}"
   end
+
+
+  desc "gpr LOCATION REPORT_FILE_NAME",
+       "reports parsed results into REPORT_FILE_NAME for all *.feature files in the given LOCATION"
+
+  def gpr loc = "../jira*/**/*", report_file_name = 'report'
+    puts "running GPTOOL @ '#{loc}' '#{report_file_name}.xlsx'"
+  end
 end
 
 # GherkinParserCmd.start(ARGV)

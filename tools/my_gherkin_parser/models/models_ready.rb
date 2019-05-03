@@ -7,11 +7,11 @@ class Step < Item
   attr_accessor :table # optional
 end
 
-class InlineComment < Item
+class Comment < Item
 
 end
 
-class Comment < Item
+class InlineComment < Comment
 
 end
 
@@ -19,12 +19,11 @@ class Tag < Item
 
 end
 
-class Example < Item
+class Row < Item
 
 end
 
-
-class Collection
+class Collection < Item
   attr_accessor :items
 end
 
@@ -32,23 +31,32 @@ class Tags < Collection
 
 end
 
-class SimpleCollection < Collection
+class Table < Collection
+
+end
+
+class Example < Table
+
+end
+
+class SimpleGherkinCollection < Collection
   attr_accessor :title, :comments
 end
 
-class Background < SimpleCollection
+class Background < SimpleGherkinCollection
 
 end
 
-class SpecialCollection < SimpleCollection
+class TaggedGherkinCollection < SimpleGherkinCollection
   attr_accessor :tags
 end
 
-class Feature < SpecialCollection
+class Feature < TaggedGherkinCollection
   attr_accessor :background
+  # attr_accessor :collections
 end
 
-class Scenario < SpecialCollection
+class Scenario < TaggedGherkinCollection
 
 end
 

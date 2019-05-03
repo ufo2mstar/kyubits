@@ -2,6 +2,16 @@ require 'thor'
 
 DRY_RUN = true
 
+class Dir
+  def self.exist_with_case?(dir)
+    self['../*'].include?(dir)
+  end
+end
+
+# p Dir.exist_with_case?('derp')
+# p Dir.exist_with_case?('Derp')
+
+
 module Interface
   def method(name)
     define_method(name) {|*args|
@@ -34,10 +44,9 @@ end
 class GitRename < MasterRename
   def run src, dest
     str = "git mv #{src} #{dest}"
-    DRY_RUN ? puts(str): `#{str}`
+    DRY_RUN ? puts(str) : `#{str}`
   end
 end
-
 
 class Renamer
   @marker = File::SEPARATOR
@@ -86,28 +95,33 @@ class Renamer
   end
 
   # https://stackoverflow.com/questions/5530479/how-to-rename-a-file-in-ruby
-  def snakecase name
+  def snakecase_file_name name
     # name.strip.downcase.tr(" ", "_")
     # name.downcase.gsub(/\s+/,' ').tr(" ", "_")
     # name.strip.downcase.gsub(/\s+/,' ').tr(" ", "_")
     # name.strip.downcase.gsub(/\s+/,' ').tr(" ", "_")
     filename = File.basename(name, File.extname(name))
-    filename.strip.downcase.gsub(/\s+/,' ').tr(" ", "_") + File.extname(name)
+    snakecase(filename) + File.extname(name)
+  end
+
+  def snakecase str
+    str.strip.downcase.gsub(/\s+/, ' ').tr(" ", "_")
   end
 
   def standardized_file_name file_loc
     file_dir = get_dir file_loc
     file_name = get_filename file_loc
-    snake_name = snakecase file_name
+    snake_name = snakecase_file_name file_name
     File.join file_dir, snake_name
   end
 
   def accurate_file_name(file_loc)
     file_dir = get_dir file_loc
-    return file_dir if Dir.exist? file_dir
+    file_name = get_filename file_loc
+    return File.join(file_dir, file_name) if Dir.exist_with_case? file_dir
     std_dir = snakecase file_dir
-    return std_dir if Dir.exist? std_dir
-    raise NoDirError "no dir found @ #{std_dir} <= #{file_dir}"
+    return File.join(std_dir, file_name) if Dir.exist_with_case? std_dir
+    raise NoDirError.new "no dir found @ '#{std_dir}' <<= >derived from '#{file_dir}'"
   end
 
   def run loc

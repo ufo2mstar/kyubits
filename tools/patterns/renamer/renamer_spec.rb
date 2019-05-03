@@ -3,12 +3,12 @@ require_relative 'renamer'
 
 describe 'rename' do
   context 'simple methods' do
+    def name_check res, exp
+      expect(res).to eq(exp)
+    end
+
     describe 'standardized_file_name' do
       let(:r) {Renamer.new}
-
-      def name_check res, exp
-        expect(res).to eq(exp)
-      end
 
       it 'should get the names standardized correctly' do
         inp = %w[
@@ -33,10 +33,6 @@ describe 'rename' do
 
       context 'snakecase' do
 
-        def name_check res, exp
-          expect(res).to eq(exp)
-        end
-
         it 'should get the names standardized correctly' do
           inp = %w[
 na\ me
@@ -47,25 +43,21 @@ n\ am-e
 na_me
 n_am-e
 ]
-          (0...inp.size).each {|i| name_check r.snakecase(inp[i]), exp[i]}
+          (0...inp.size).each {|i| name_check r.snakecase_file_name(inp[i]), exp[i]}
         end
       end
 
       context 'accurate_file_name' do
 
-        def name_check res, exp
-          expect(res).to eq(exp)
-        end
-
-        it 'should get the names standardized correctly' do
+        it 'should identify dirs correctly' do
           inp = %w[
-na\ me
-n\ am-e
+../RENAMER/kod.txt
+../renamer/kod.txt
 ]
 
           exp = %w[
-na_me
-n_am-e
+../renamer/kod.txt
+../renamer/kod.txt
 ]
           (0...inp.size).each {|i| name_check r.accurate_file_name(inp[i]), exp[i]}
         end

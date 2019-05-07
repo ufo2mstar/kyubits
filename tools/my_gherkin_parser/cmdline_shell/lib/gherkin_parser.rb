@@ -19,7 +19,12 @@ class GherkinParser
   # dir glob for all feature files
   # @param location dir location of all the feature files
   def get_features(loc)
-    Dir.glob(loc).reject {|x| x =~ IGNORE_EXP}
+    FileHelper.get_files(loc, '.feature$', IGNORE_EXP)
   end
 
+end
+class FileHelper
+  def self.get_files loc, target_pattern, ignore_patterns
+    Dir.glob(loc).select {|x| x =~ target_pattern and x !~ ignore_patterns}
+  end
 end

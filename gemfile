@@ -2,6 +2,8 @@
 source 'https://rubygems.org'
 gem 'ruby-graphviz'
 gem 'rspec'
+
+gem 'logging'
 # end
 
 gem 'awesome_print'

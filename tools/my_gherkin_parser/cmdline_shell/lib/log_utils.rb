@@ -20,8 +20,8 @@ Logging.color_scheme('my_bright',
 
 TIMESTAMP_PATTERN = "%Y-%m-%d %H:%M:%S.%L"
 LOG_TIME_TODAY = Time.now.strftime("%Y-%m-%d")
-LOG_TIME_NOW = Time.now.strftime("%Y-%m-%d %H:%M:%S")
-LOG_FILE = "log #{LOG_TIME_TODAY}.log"
+LOG_TIME_NOW = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+LOG_FILE = "log_#{LOG_TIME_TODAY}.log"
 
 # File appender
 Logging.appenders.file(LOG_FILE,
@@ -52,7 +52,7 @@ module LoggerSetup
     @log.level = level || :debug # your lowest level
     @log.add_appenders(
         'stdout',
-        'file.log'
+        LOG_FILE
     )
     @log
   end

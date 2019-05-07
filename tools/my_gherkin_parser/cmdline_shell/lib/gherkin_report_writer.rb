@@ -1,4 +1,4 @@
-require 'log_utils'
+require_relative 'log_utils'
 require 'writeexcel'
 
 #= Write to Reports
@@ -8,14 +8,18 @@ require 'writeexcel'
 class GherkinReportWriter
   include LoggerSetup
 
-  attr_accessor :file_name, :worksheet
+  attr_accessor :file_name, :workbook
 
-  def initialize(file_name = LOG_TIME_NOW)
+  def initialize(loc, file_name = LOG_TIME_NOW)
     init_logger
-    @file_name = file_name
-    @worksheet = setup_report_file @file_name
+    extension = '.xls'
+    # extension = '.csv' # bad formats
+
+    @file_name = File.join(loc, (file_name + extension))
+    @workbook = setup_report_file @file_name
     @exc_no = 1
     @log.info "Creating report file => #{@file_name}"
+    @workbook.close
   end
 
   private
@@ -39,6 +43,7 @@ class GherkinReportWriter
     title_hai.each_with_index do |itr, i|
       worksheet.set_column(i, i, itr.split(";")[1].to_i) if itr.split(";")[1]
     end
+    workbook
   end
 
   def basic_write

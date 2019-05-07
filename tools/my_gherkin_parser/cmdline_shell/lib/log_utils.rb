@@ -1,3 +1,4 @@
+# $LOAD_PATH << File.expand_path("#{File.dirname(__FILE__)}")
 require 'logging'
 
 # Logger params
@@ -17,13 +18,15 @@ Logging.color_scheme('my_bright',
                      :message => :white
 )
 
+TIMESTAMP_PATTERN = "%Y-%m-%d %H:%M:%S.%L"
+
 # File appender
 Logging.appenders.file('file.log',
                        level:   :debug, # or your custom lowest level init-ed
                        layout:  Logging.layouts.pattern(
                            pattern:      "[%d] %-5l %c: %m\n",
                            # color_scheme: 'my_bright', # best not to use color_schemes on file loggers
-                           date_pattern: "%Y-%m-%d %H:%M:%S"),
+                           date_pattern: TIMESTAMP_PATTERN),
                        # truncate: true, # if you want to clear old log information
                        # age:      5 * 60, # feel free to play around with these
                        roll_by: :date # for rolling logs if you want to change files periodically
@@ -35,13 +38,13 @@ Logging.appenders.stdout('stdout',
                          layout: Logging.layouts.pattern(
                              pattern:      "[%d] %-5l %c: %m\n",
                              color_scheme: 'my_bright', # best not to use color_schemes on file loggers
-                             date_pattern: "%Y-%m-%d %H:%M:%S"))
+                             date_pattern: TIMESTAMP_PATTERN))
 
 # sample logger setup module
 module LoggerSetup
   attr_reader :log
 
-  def self.init_logger(level = nil)
+  def init_logger(level = nil)
     @log       = Logging.logger[self]
     @log.level = level || :debug # your lowest level
     @log.add_appenders(

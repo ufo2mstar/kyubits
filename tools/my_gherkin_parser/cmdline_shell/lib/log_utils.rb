@@ -19,9 +19,12 @@ Logging.color_scheme('my_bright',
 )
 
 TIMESTAMP_PATTERN = "%Y-%m-%d %H:%M:%S.%L"
+LOG_TIME_TODAY = Time.now.strftime("%Y-%m-%d")
+LOG_TIME_NOW = Time.now.strftime("%Y-%m-%d %H:%M:%S")
+LOG_FILE = "log #{LOG_TIME_TODAY}.log"
 
 # File appender
-Logging.appenders.file('file.log',
+Logging.appenders.file(LOG_FILE,
                        level:   :debug, # or your custom lowest level init-ed
                        layout:  Logging.layouts.pattern(
                            pattern:      "[%d] %-5l %c: %m\n",

@@ -54,3 +54,5 @@ build-iPhoneSimulator/
 coverage
 /gemfile.lock
 .idea/*
+
+*.log

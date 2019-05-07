@@ -8,7 +8,7 @@ require 'writeexcel'
 class GherkinReportWriter
   include LoggerSetup
 
-  attr_accessor :file_name , :worksheet
+  attr_accessor :file_name, :worksheet
 
   def initialize(file_name = LOG_TIME_NOW)
     init_logger
@@ -19,13 +19,18 @@ class GherkinReportWriter
   end
 
   private
-  
-  def setup_report_file name
-    output_file = "scen_UAT-reg_done_#{Time.now.strftime '%F_%H-%M-%S'}.xls"
+
+  def setup_report_file output_file_name
+    states = %w[OH, WI, NY, SA]
+    col_list = [:ignore, :mock, :run, :defect, :other]
+
+    # output_file = "scen_UAT-reg_done_#{Time.now.strftime '%F_%H-%M-%S'}.xls"
+    # output_file = name
     title_hai = ["Sl.No;4", "Type;4", "Title;60", states.map {|a| a + ";2"}, col_list.map {|a| "#{a};10"}, "Feature;10", "S.no;3", "File"].flatten
 
-    workbook = WriteExcel.new(output_file)
+    workbook = WriteExcel.new(output_file_name)
     worksheet = workbook.add_worksheet
+
     @format = workbook.add_format(:size => 10, :bold => 1); @format.set_align('center') #format.set_bold
     @state_f = workbook.add_format(:size => 8, :align => "center") #@state_f.set_align('center')
 

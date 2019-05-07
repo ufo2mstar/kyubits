@@ -8,7 +8,8 @@ class GherkinParser
   include LoggerSetup
 
   attr_accessor :location
-  attr_reader :features
+  # attr_reader :features
+  attr_accessor :features
 
   def initialize loc = '*'
     init_logger

@@ -22,6 +22,10 @@ class GherkinReportWriter
     @workbook.close
   end
 
+  def add_feature_row(feature)
+    puts "add_feature_row => #{feature}"
+  end
+
   private
 
   def setup_report_file output_file_name

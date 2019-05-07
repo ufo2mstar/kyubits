@@ -1,10 +1,13 @@
 require 'rspec'
+require_relative 'log_utils'
 require_relative 'gherkin_report_writer'
 require_relative 'gherkin_parser_spec'
 # require_relative 'gherkin_parser'
 require_relative '../../models/models_ready'
 
 describe GherkinReportWriter do
+  include LoggerSetup
+
   describe "init" do
     REPORT_FILE_LOC = '../../reports'
     REPORT_FILE_NAME = 'demo_file'
@@ -13,26 +16,33 @@ describe GherkinReportWriter do
     let(:grw) {GherkinReportWriter.new(REPORT_FILE_LOC, REPORT_FILE_NAME)}
 
     before(:all) do
-      p "before all block"
+      init_logger
+      @log.debug "before all block"
+    end
+
+    before(:each) do
+      @log.debug "before all block"
     end
 
     after(:all) do
+      @log.debug "before all block"
+    end
+
+    after(:each) do
       glob_str = File.join(REPORT_FILE_LOC, '**', REPORT_FILE_NAME + '*')
       ans = Dir.glob(glob_str)
       FileUtils.rm ans
       ans = Dir.glob(glob_str)
       raise FileNotRemoved.new("please see why the file #{ans} is not removed yet") if ans.any?
-      puts "after all ran"
+      @log.debug "after each"
     end
 
     context "file create check" do
 
-      # specify { subject.has_ketchup_on_it?.should be_true
       it 'should output a demo_report file' do
         grw
         ans = Dir.glob(glob_str)
         expect(ans.size).to eq 1
-
       end
     end
 
@@ -45,10 +55,9 @@ describe GherkinReportWriter do
       }
 
       it 'should output a demo_report file' do
+        grw
         ans = Dir.glob(glob_str)
-
         grw.add_feature_row gpo.features[0]
-
         expect(ans.size).to eq 1
       end
     end

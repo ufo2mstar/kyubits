@@ -5,6 +5,9 @@ require_relative 'gherkin_parser_spec'
 # require_relative 'gherkin_parser'
 require_relative '../../models/models_ready'
 
+
+FileNotRemoved = Class.new StandardError
+
 describe GherkinReportWriter do
   include LoggerSetup
 
@@ -38,7 +41,6 @@ describe GherkinReportWriter do
     end
 
     context "file create check" do
-
       it 'should output a demo_report file' do
         grw
         ans = Dir.glob(glob_str)
@@ -62,6 +64,11 @@ describe GherkinReportWriter do
       end
     end
   end
-end
 
-FileNotRemoved = Class.new StandardError
+  describe "write out" do
+    context "with a sample feature model" do
+      
+    end
+  end
+  
+end

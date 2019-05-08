@@ -12,3 +12,6 @@ gem 'thor'
 
 # - gherk parser
 gem 'writeexcel'
+
+# - comp cooker
+gem 'zip'

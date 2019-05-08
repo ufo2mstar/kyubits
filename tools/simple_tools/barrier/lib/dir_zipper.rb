@@ -11,9 +11,9 @@ require 'zip'
 #   zf = ZipFileGenerator.new(directoryToZip, output_file)
 #   zf.write()
 class ZipFileGenerator
-#   def initialize(inputDir, outputFile)
-#     @inputDir   = inputDir
-#     @outputFile = outputFile
+#   def initialize(input_dir, output_file)
+#     @input_dir   = input_dir
+#     @output_file = output_file
 #   end
 end
 
@@ -21,35 +21,31 @@ class DiffZipFileGen < ZipFileGenerator
   attr_accessor :input_dir
 
 # Initialize with the directory to zip and the location of the output archive.
-# def initialize a,b
-#   @input_dir = nil
-# end
-
-# def initialize
-#
-# end
-
-  def initialize (inputDir = nil, outputFile = nil)
-    @inputDir   = inputDir
-    @outputFile = outputFile
+  def initialize (input_dir = nil, output_file = nil)
+    @input_dir = input_dir
+    @output_file = output_file
   end
 
 # Zip the input directory.
-  def comp(input_dir, output_file)
-    @inputDir   = input_dir
-    # @input_dir  = @inputDir
-    @outputFile = output_file
-    FileUtils.rm @outputFile if File.exists? @outputFile
-    # File.open(output_file, 'w')
-    entries = Dir.entries(@inputDir); entries.delete("."); entries.delete("..")
-    io = Zip::File.open(@outputFile, Zip::File::CREATE)
+  def comp_to(input_dir, output_file)
+    @input_dir = input_dir
+    # @input_dir  = @input_dir
+    @output_file = output_file
 
-    writeEntries(entries, "", io)
+    if File.exists? @output_file
+      FileUtils.rm @output_file
+      puts "\ndeleting existing Comp file: #{@output_file}"
+    end
+    # File.open(output_file, 'w')
+    entries = Dir.entries(@input_dir); entries.delete("."); entries.delete("..")
+    io = Zip::File.open(@output_file, Zip::File::CREATE)
+
+    write_entries(entries, "", io)
     io.close
     puts "\n#{output_file} chaching!\n\n"
   end
 
-  def decomp file, dest_loc
+  def decomp_to file, dest_loc
     if File.exists?(dest_loc)
       puts "\ndeleting existing Decomp dir: #{dest_loc}"
       FileUtils.remove_dir(dest_loc)
@@ -82,19 +78,21 @@ class DiffZipFileGen < ZipFileGenerator
   end
 
 # A helper method to make the recursion work.
-  private
-  def writeEntries(entries, path, io)
 
-    entries.each { |e|
-      zipFilePath  = path == "" ? e : File.join(path, e)
-      diskFilePath = File.join(@inputDir, zipFilePath)
-      puts "Deflating " + diskFilePath
-      if File.directory?(diskFilePath)
-        io.mkdir(zipFilePath)
-        subdir =Dir.entries(diskFilePath); subdir.delete("."); subdir.delete("..")
-        writeEntries(subdir, zipFilePath, io)
+  private
+
+  def write_entries(entries, path, io)
+
+    entries.each {|e|
+      zip_file_path = path == "" ? e : File.join(path, e)
+      disk_file_path = File.join(@input_dir, zip_file_path)
+      puts "Deflating " + disk_file_path
+      if File.directory?(disk_file_path)
+        io.mkdir(zip_file_path)
+        subdir = Dir.entries(disk_file_path); subdir.delete("."); subdir.delete("..")
+        write_entries(subdir, zip_file_path, io)
       else
-        io.get_output_stream(zipFilePath) { |f| f.puts(File.open(diskFilePath, "rb").read()) }
+        io.get_output_stream(zip_file_path) {|f| f.puts(File.open(disk_file_path, "rb").read())}
       end
       # puts "done with #{diskFilePath}"
     }
@@ -107,18 +105,18 @@ end
 # exec ----------------------------------------------------------
 
 
-# init
-zf       = DiffZipFileGen.new
-
-# comp
-curr_dir = "#{File.expand_path(File.dirname(__FILE__))}"
-out_file = "kod.png"
-in_dir  = 'com'
-
-zf.comp "#{curr_dir}/#{in_dir}", out_file
-
-
-# decomp
-dest_loc = "#{curr_dir}/decom"
-
-zf.decomp out_file, dest_loc
+# # init
+# zf       = DiffZipFileGen.new
+#
+# # comp
+# curr_dir = "#{File.expand_path(File.dirname(__FILE__))}"
+# out_file = "kod.png"
+# in_dir  = 'com'
+#
+# zf.comp "#{curr_dir}/#{in_dir}", out_file
+#
+#
+# # decomp
+# dest_loc = "#{curr_dir}/decom"
+#
+# zf.decomp out_file, dest_loc

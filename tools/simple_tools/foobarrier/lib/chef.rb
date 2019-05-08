@@ -1,23 +1,6 @@
 require 'zip'
 
-# This is a simple example which uses rubyzip to
-# recursively generate a zip file from the contents of
-# a specified directory. The directory itself is not
-# included in the archive, rather just its contents.
-#
-# Usage:
-#   directoryToZip = "/tmp/input"
-#   output_file = "/tmp/out.zip"
-#   zf = ZipFileGenerator.new(directoryToZip, output_file)
-#   zf.write()
-class ZipFileGenerator
-#   def initialize(input_dir, output_file)
-#     @input_dir   = input_dir
-#     @output_file = output_file
-#   end
-end
-
-class DiffZipFileGen < ZipFileGenerator
+class DiffZipFileGen
   attr_accessor :input_dir
 
 # Initialize with the directory to zip and the location of the output archive.
@@ -107,26 +90,4 @@ class DiffZipFileGen < ZipFileGenerator
       # puts "done with #{diskFilePath}"
     }
   end
-
-
 end
-
-
-# exec ----------------------------------------------------------
-
-
-# # init
-# zf       = DiffZipFileGen.new
-#
-# # comp
-# curr_dir = "#{File.expand_path(File.dirname(__FILE__))}"
-# out_file = "kod.png"
-# in_dir  = 'com'
-#
-# zf.comp "#{curr_dir}/#{in_dir}", out_file
-#
-#
-# # decomp
-# dest_loc = "#{curr_dir}/decom"
-#
-# zf.decomp out_file, dest_loc

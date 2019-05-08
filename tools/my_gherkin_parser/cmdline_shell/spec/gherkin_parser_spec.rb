@@ -1,9 +1,9 @@
 require 'rspec'
-require_relative 'gherkin_parser'
+require_relative '../lib/gherkin_parser'
 
 describe GherkinParser do
   describe "init" do
-    let(:test_loc) {'../test/files'}
+    let(:test_loc) {'./spec/testdata'}
 
     context "with ketchup" do
       let(:gp) {GherkinParser.new(test_loc)}

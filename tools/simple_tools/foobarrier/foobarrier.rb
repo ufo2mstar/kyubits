@@ -44,13 +44,6 @@ end
 require 'zip'
 
 class DiffZipFileGen
-  attr_accessor :input_dir
-
-# Initialize with the directory to zip and the location of the output archive.
-#   def initialize (input_dir = nil, output_file = nil)
-#     @input_dir = input_dir
-#     @output_file = output_file
-#   end
 
 # Zip the input directory.
   def comp_to(input_dir, output_file)
@@ -87,10 +80,6 @@ class DiffZipFileGen
     FileUtils.mkdir_p(dest_loc)
 
     Zip::ZipFile.open(file) do |zip_file|
-      # if File.exists?(zip_file.name)
-      #   puts "already exists! #{zip_file}"
-      #   next
-      # end
       # Handle entries one by one
       zip_file.each do |entry|
         if entry.nil?
@@ -168,6 +157,7 @@ class FooBar < Thor
       begin
         CHEF.decomp_to file, File.join(dest_dir,File.basename(file,File.extname(file)))
       rescue Zip::ZipError
+        # todo: fix this hack to decode data properly
         zip_file = BAKER.parse_file file
         CHEF.decomp_to zip_file, File.join(dest_dir,File.basename(file,File.extname(file)))
       else

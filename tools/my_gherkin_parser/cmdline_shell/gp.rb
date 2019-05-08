@@ -10,7 +10,7 @@ end
 class GherkinParserCmd < Thor
 
   GPTOOL = GherkinParser.new
-  PRESET_LOCS = ['*', '../*']
+  PRESET_LOCS = ['*', './*']
 
   # desc "hello NAME", "say hello to NAME"
   # def hello(name, from = nil)

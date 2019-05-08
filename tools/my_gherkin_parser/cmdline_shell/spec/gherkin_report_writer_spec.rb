@@ -1,6 +1,6 @@
 require 'rspec'
-require_relative 'log_utils'
-require_relative 'gherkin_report_writer'
+require_relative '../lib/log_utils'
+require_relative '../lib/gherkin_report_writer'
 require_relative 'gherkin_parser_spec'
 # require_relative 'gherkin_parser'
 require_relative '../../models/models_ready'
@@ -12,7 +12,7 @@ describe GherkinReportWriter do
   include LoggerSetup
 
   describe "init" do
-    REPORT_FILE_LOC = '../../reports'
+    REPORT_FILE_LOC = './../reports'
     REPORT_FILE_NAME = 'demo_file'
 
     let(:glob_str) {File.join(REPORT_FILE_LOC, '**', REPORT_FILE_NAME + '*')}

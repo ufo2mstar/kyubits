@@ -1,12 +1,12 @@
 require 'rspec'
-require_relative 'gp'
+require_relative '../gp'
 
 describe "GherkinParserCmd" do
   context "object validation" do
     let(:gpc) {GherkinParserCmd.new}
     it 'should contain the following preset locations' do
-      res = gpc::PRESET_LOCS
-      exp = ['*', '../*']
+      res = GherkinParserCmd::PRESET_LOCS
+      exp = ['*', './*']
       expect(res).to eq exp
     end
 

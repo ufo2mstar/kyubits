@@ -42,18 +42,19 @@ class DiffZipFileGen < ZipFileGenerator
 
     write_entries(entries, "", io)
     io.close
-    puts "\n#{output_file} chaching!\n\n"
+    puts "\n'#{output_file}' comped!\n\n"
   end
 
   def decomp_to file, dest_loc
     if File.exists?(dest_loc)
       puts "Dir '#{dest_loc}' already exists.. \nwant to delete it? (undoable) y / [n]"
-      ans = gets.chomp
+      ans = $stdin.gets.chomp
       if ans =~ /y/i
-        puts "\ndeleting existing Decomp dir: #{dest_loc}"
+        puts "\ndeleting existing Decomp dir: #{dest_loc}\n\n"
         FileUtils.remove_dir(dest_loc)
       else
-        puts "ok.. then not decomping #{file} -> #{dest_loc}/"
+        puts "ok.. then not decomping '#{file}' -> '#{dest_loc}/*'"
+        return
       end
     end
     # puts "creating new Decomp dir: #{dest_loc}"
@@ -79,7 +80,7 @@ class DiffZipFileGen < ZipFileGenerator
 
       # Find specific entry
       # entry = zip_file.glob('*.csv').first
-      puts "\n#{zip_file} chaching!"
+      puts "\n'#{zip_file}' decomped!\n\n"
     end
   end
 
@@ -88,7 +89,6 @@ class DiffZipFileGen < ZipFileGenerator
   private
 
   def write_entries(entries, path, io)
-
     entries.each {|e|
       zip_file_path = path == "" ? e : File.join(path, e)
       disk_file_path = File.join(@input_dir, zip_file_path)

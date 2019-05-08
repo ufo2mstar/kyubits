@@ -23,7 +23,12 @@ class FooBar < Thor
   def bar file_pattern = "*.html" , dest_dir = File.join('.','decomp')
     puts "bar @ #{file_pattern}"
     files = Dir.glob[file_pattern]
+    if files.empty?
+      puts "No files matching pattern /#{file_pattern}/..."
+      return
+    end
     # decomp
+    p files
     files.each do |file|
       CHEF.decomp file, File.join(dest_dir,File.basename(file))
     end

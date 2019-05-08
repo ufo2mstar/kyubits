@@ -155,7 +155,7 @@ class FooBar < Thor
 
   desc "bar FILE_PATTERN [DEST_DIR]", "point to pattern to Dir.glob"
 
-  def bar file_pattern = "*.html" , dest_dir = File.join('.','decomp')
+  def bar file_pattern = "*.png" , dest_dir = File.join('.','decomp')
     puts "bar @ #{file_pattern}"
     files = Dir.glob file_pattern
     if files.empty?

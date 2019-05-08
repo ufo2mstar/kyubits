@@ -70,7 +70,7 @@ class DiffZipFileGen < ZipFileGenerator
         dest = "#{dest_loc}/#{entry.name}"
         # Extract to file/directory/symlink
         # puts "Extracting #{entry.name} \tto\t #{dest}"
-        puts "Extracting #{entry.name}"
+        puts "\tExtracting #{entry.name}"
         # entry.extract(dest_file)
         entry.extract(dest)
 
@@ -92,7 +92,7 @@ class DiffZipFileGen < ZipFileGenerator
     entries.each {|e|
       zip_file_path = path == "" ? e : File.join(path, e)
       disk_file_path = File.join(@input_dir, zip_file_path)
-      puts "Deflating " + disk_file_path
+      puts "\tDeflating " + disk_file_path
       if File.directory?(disk_file_path)
         io.mkdir(zip_file_path)
         subdir = Dir.entries(disk_file_path); subdir.delete("."); subdir.delete("..")

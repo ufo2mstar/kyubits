@@ -5,6 +5,7 @@ class EncodeHtml
   # BASE_HTML = "based64.html"
   def initialize(file_name = "./based64.html")
     @file_name = file_name
+  #   todo: add file unfound safety
   end
 
   def img64(path)
@@ -19,6 +20,15 @@ class EncodeHtml
     img_ary.each {|path| out << "<img alt='#{path}' \ntitle='#{File.basename path}'\n src='#{img64 path}'\n>\n</br>"}
     out << '</body></html>'
     File.open(@file_name, 'w') {|f| out.each {|line| f.write line}}
+  end
+
+  def parse_img html_file_name
+  # todo: scan from html
+  # res_name = ""
+  # File.open(html_file_name,'r') do |line|
+  #   f.readlines
+  # end
+  # dec = Base64.strict_decode64(enc)
   end
 
 end

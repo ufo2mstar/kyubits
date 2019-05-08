@@ -1,6 +1,6 @@
 require 'thor'
-require_relative 'lib/encode_html_b64'
-require_relative 'lib/dir_zipper'
+require_relative 'lib/baker'
+require_relative 'lib/chef'
 
 class FooBar < Thor
 
@@ -30,7 +30,17 @@ class FooBar < Thor
     # decomp
     p files
     files.each do |file|
-      CHEF.decomp_to file, File.join(dest_dir,File.basename(file,File.extname(file)))
+      begin
+        CHEF.decomp_to file, File.join(dest_dir,File.basename(file,File.extname(file)))
+      rescue Zip::ZipError
+        zip_file = BAKER.parse_zip file
+        CHEF.decomp_to zip_file, File.join(dest_dir,File.basename(file,File.extname(file)))
+      else
+        # code that runs only if *no* exception was raised
+      ensure
+        'hope that ran well...'
+      end
+
     end
   end
 

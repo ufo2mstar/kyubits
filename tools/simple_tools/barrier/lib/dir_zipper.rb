@@ -21,10 +21,10 @@ class DiffZipFileGen < ZipFileGenerator
   attr_accessor :input_dir
 
 # Initialize with the directory to zip and the location of the output archive.
-  def initialize (input_dir = nil, output_file = nil)
-    @input_dir = input_dir
-    @output_file = output_file
-  end
+#   def initialize (input_dir = nil, output_file = nil)
+#     @input_dir = input_dir
+#     @output_file = output_file
+#   end
 
 # Zip the input directory.
   def comp_to(input_dir, output_file)

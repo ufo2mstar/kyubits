@@ -30,7 +30,7 @@ class FooBar < Thor
     # decomp
     p files
     files.each do |file|
-      CHEF.decomp_to file, File.join(dest_dir,File.basename(file))
+      CHEF.decomp_to file, File.join(dest_dir,File.basename(file,File.extname(file)))
     end
   end
 

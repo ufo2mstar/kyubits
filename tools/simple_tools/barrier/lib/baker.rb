@@ -5,7 +5,7 @@ class EncodeHtml
   # BASE_HTML = "based64.html"
   def initialize(file_name = "./based64.html")
     @file_name = file_name
-  #   todo: add file unfound safety
+    #   todo: add file unfound safety
   end
 
   def img64(path)
@@ -22,13 +22,17 @@ class EncodeHtml
     File.open(@file_name, 'w') {|f| out.each {|line| f.write line}}
   end
 
-  def parse_img html_file_name
-  # todo: scan from html
-  # res_name = ""
-  # File.open(html_file_name,'r') do |line|
-  #   f.readlines
-  # end
-  # dec = Base64.strict_decode64(enc)
+  def parse_img input_file_name
+    # todo: scan from html
+    # res_name = ""
+    # File.open(html_file_name,'r') do |line|
+    #   f.readlines
+    # end
+    enc = File.read input_file_name
+    dec = Base64.strict_decode64(enc)
+    png_name = 'kod.png'
+    File.open(png_name, 'w') {|f| f.write dec}
+    png_name
   end
 
 end

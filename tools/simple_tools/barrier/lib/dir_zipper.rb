@@ -47,8 +47,14 @@ class DiffZipFileGen < ZipFileGenerator
 
   def decomp_to file, dest_loc
     if File.exists?(dest_loc)
-      puts "\ndeleting existing Decomp dir: #{dest_loc}"
-      FileUtils.remove_dir(dest_loc)
+      puts "Dir '#{dest_loc}' already exists.. \nwant to delete it? (undoable) y / [n]"
+      ans = gets.chomp
+      if ans =~ /y/i
+        puts "\ndeleting existing Decomp dir: #{dest_loc}"
+        FileUtils.remove_dir(dest_loc)
+      else
+        puts "ok.. then not decomping #{file} -> #{dest_loc}/"
+      end
     end
     # puts "creating new Decomp dir: #{dest_loc}"
     FileUtils.mkdir_p(dest_loc)

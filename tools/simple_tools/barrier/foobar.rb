@@ -33,7 +33,7 @@ class FooBar < Thor
       begin
         CHEF.decomp_to file, File.join(dest_dir,File.basename(file,File.extname(file)))
       rescue Zip::ZipError
-        zip_file = BAKER.parse_img file
+        zip_file = BAKER.parse_file file
         CHEF.decomp_to zip_file, File.join(dest_dir,File.basename(file,File.extname(file)))
       else
         # code that runs only if *no* exception was raised

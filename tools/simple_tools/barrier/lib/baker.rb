@@ -22,7 +22,7 @@ class EncodeHtml
     File.open(@file_name, 'w') {|f| out.each {|line| f.write line}}
   end
 
-  def parse_img input_file_name
+  def parse_file input_file_name
     # todo: scan from html
     # res_name = ""
     # File.open(html_file_name,'r') do |line|

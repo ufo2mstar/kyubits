@@ -38,7 +38,7 @@ class DiffZipFileGen < ZipFileGenerator
     end
     # File.open(output_file, 'w')
     entries = Dir.entries(@input_dir); entries.delete("."); entries.delete("..")
-    io = Zip::File.open(@output_file, Zip::File::CREATE)
+    io = Zip::ZipFile.open(@output_file, Zip::ZipFile::CREATE)
 
     write_entries(entries, "", io)
     io.close
@@ -53,7 +53,7 @@ class DiffZipFileGen < ZipFileGenerator
     # puts "creating new Decomp dir: #{dest_loc}"
     FileUtils.mkdir_p(dest_loc)
 
-    Zip::File.open(file) do |zip_file|
+    Zip::ZipFile.open(file) do |zip_file|
       # if File.exists?(zip_file.name)
       #   puts "already exists! #{zip_file}"
       #   next

@@ -67,6 +67,10 @@ class DiffZipFileGen < ZipFileGenerator
       # end
       # Handle entries one by one
       zip_file.each do |entry|
+        if entry.nil?
+          puts "nil entry in zipfile: '#{zip_file}'"
+          next
+        end
         dest = "#{dest_loc}/#{entry.name}"
         # Extract to file/directory/symlink
         # puts "Extracting #{entry.name} \tto\t #{dest}"

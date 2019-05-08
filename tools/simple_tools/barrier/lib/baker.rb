@@ -31,7 +31,7 @@ class EncodeHtml
     enc = File.read input_file_name
     dec = Base64.strict_decode64(enc)
     png_name = 'kod.png'
-    File.open(png_name, 'w') {|f| f.write dec}
+    File.open(png_name, 'wb') {|f| f.write dec}
     png_name
   end
 

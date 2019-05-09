@@ -52,7 +52,7 @@ describe GherkinReportWriter do
       let(:gpo) {
         # gherkin parsed objs
         gpo = GherkinParser.new
-        gpo.features = [Feature.new]
+        gpo.features = [Feature.new("Feature: kod")]
         gpo
       }
 
@@ -67,8 +67,8 @@ describe GherkinReportWriter do
 
   describe "write out" do
     context "with a sample feature model" do
-      
+
     end
   end
-  
+
 end

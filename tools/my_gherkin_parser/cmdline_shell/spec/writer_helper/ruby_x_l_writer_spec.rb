@@ -24,5 +24,11 @@ describe RubyXLWriter do
       expect(w.active_sheet.rows.size).to eq 4
       expect(w.active_sheet.current_row).to eq 5
     end
+
+    it 'should add new named sheets' do
+      expect(w.sheets.size).to eq 1
+      w.make_new_sheet 'kod'
+      expect(w.sheets.size).to eq 2
+    end
   end
 end

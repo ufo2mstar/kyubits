@@ -3,7 +3,7 @@ require_relative '../lib/log_utils'
 require_relative '../lib/gherkin_report_writer'
 require_relative 'gherkin_parser_spec'
 # require_relative 'gherkin_parser'
-require_relative '../../models/models_ready'
+require_relative '../lib/models/models_ready'
 
 
 FileNotRemoved = Class.new StandardError

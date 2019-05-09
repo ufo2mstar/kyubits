@@ -1,1 +1,4 @@
-Feature: Just a feature with a description
+Feature: with a bg
+
+  Background: bg desc
+    Given some setup

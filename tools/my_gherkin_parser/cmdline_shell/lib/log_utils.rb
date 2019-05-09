@@ -21,10 +21,15 @@ Logging.color_scheme('my_bright',
 TIMESTAMP_PATTERN = "%Y-%m-%d %H:%M:%S.%L"
 LOG_TIME_TODAY = Time.now.strftime("%Y-%m-%d")
 LOG_TIME_NOW = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+
+LOG_LOC = "./logs"
 LOG_FILE = "log_#{LOG_TIME_TODAY}.log"
+LOG_FILE_PATH = File.join(LOG_LOC,LOG_FILE)
+
+Dir.mkdir(LOG_LOC) unless Dir.exists? LOG_LOC
 
 # File appender
-Logging.appenders.file(LOG_FILE,
+Logging.appenders.file(LOG_FILE_PATH,
                        level:   :debug, # or your custom lowest level init-ed
                        layout:  Logging.layouts.pattern(
                            pattern:      "[%d] %-5l %c: %m\n",
@@ -52,7 +57,7 @@ module LoggerSetup
     @log.level = level || :debug # your lowest level
     @log.add_appenders(
         'stdout',
-        LOG_FILE
+        LOG_FILE_PATH
     )
     @log
   end

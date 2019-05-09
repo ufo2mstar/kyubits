@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
-gem 'ruby-graphviz'
-gem 'rspec'
 
+# utils
+gem 'rspec'
 gem 'logging'
 gem 'benchmark-ips'
-
 gem 'awesome_print'
+gem 'require_all'
 
+gem 'ruby-graphviz'
 # tools
 gem 'thor'
 

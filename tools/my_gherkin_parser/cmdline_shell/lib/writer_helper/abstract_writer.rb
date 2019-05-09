@@ -17,15 +17,35 @@ class AbstractWriter
   include IWriter
   include LoggerSetup
 
-  attr_accessor :sheets
+  attr_accessor :sheets, :active_sheet
 
   def initialize
     init_logger
     @log.debug "initing AbstractWriter"
-    @sheets = []
+    @sheets = {}
+  end
+
+  def make_new_sheet name = nil
+    @log.debug "make new abstract sheet"
+    name = "Sheet #{@sheets.size + 1}"
+    @sheets[name] = Sheet.new name
+    # todo: file name collision handle
   end
 end
 
 class Sheet
-  attr_accessor :current_row
+  attr_accessor :name, :rows, :current_row
+
+  def initialize name
+    @name = name
+    @rows = []
+  end
+
+  def current_row
+    @rows.size + 1
+  end
+
+  def add_row ary
+    @rows << ary
+  end
 end

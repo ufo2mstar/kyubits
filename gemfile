@@ -15,4 +15,4 @@ gem 'thor'
 gem 'writeexcel'
 
 # - comp cooker
-gem 'zip'
+gem 'zip', "=2.0.2"

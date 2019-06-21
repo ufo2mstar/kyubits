@@ -25,16 +25,16 @@ class EncodeHtml
   end
 
   def parse_file input_file_name
-    # todo: scan from html
-    # res_name = ""
-    # File.open(html_file_name,'r') do |line|
-    #   f.readlines
-    # end
-    enc = File.read input_file_name
-    dec = Base64.strict_decode64(enc)
-    png_name = 'kod.png'
-    File.open(png_name, 'wb') {|f| f.write dec}
-    png_name
+    ext = 'zip'
+    str = File.read input_file_name
+    enc_ary = str.scan(/src='data:image\/.*?;base64,(.*)?'/).to_a
+    enc_ary.each_with_index do |enc, i|
+      dec = Base64.strict_decode64(enc.first)
+      png_name = "kod#{i}.#{ext}"
+      File.open(png_name, 'wb') {|f| f.write dec}
+      png_name
+    end
+    ext
   end
 
 end
@@ -57,7 +57,7 @@ class DiffZipFileGen
     end
     # File.open(output_file, 'w')
     entries = Dir.entries(@input_dir); entries.delete("."); entries.delete("..")
-    io = Zip::ZipFile.open(@output_file, Zip::ZipFile::CREATE)
+    io = Zip::File.open(@output_file, Zip::File::CREATE)
 
     write_entries(entries, "", io)
     io.close
@@ -79,7 +79,7 @@ class DiffZipFileGen
     # puts "creating new Decomp dir: #{dest_loc}"
     FileUtils.mkdir_p(dest_loc)
 
-    Zip::ZipFile.open(file) do |zip_file|
+    Zip::File.open(file) do |zip_file|
       # Handle entries one by one
       zip_file.each do |entry|
         if entry.nil?
@@ -125,7 +125,6 @@ class DiffZipFileGen
 end
 
 
-
 class FooBar < Thor
 
   BAKER = EncodeHtml.new "./index.html"
@@ -144,26 +143,24 @@ class FooBar < Thor
 
   desc "bar FILE_PATTERN [DEST_DIR]", "point to pattern to Dir.glob"
 
-  def bar file_pattern = "*.png" , dest_dir = File.join('.','decomp')
+  def bar file_pattern = "*.png", dest_dir = File.join('.', 'decomp')
     puts "bar @ #{file_pattern}"
     files = Dir.glob file_pattern
     if files.empty?
       puts "No files matching pattern /#{file_pattern}/..."
       return
     end
+
+    dest_maker = -> dest_dir, file {File.join(dest_dir, File.basename(file, File.extname(file)))}
+
     # decomp
     p files
     files.each do |file|
-      begin
-        CHEF.decomp_to file, File.join(dest_dir,File.basename(file,File.extname(file)))
-      rescue Zip::ZipError
-        # todo: fix this hack to decode data properly
-        zip_file = BAKER.parse_file file
-        CHEF.decomp_to zip_file, File.join(dest_dir,File.basename(file,File.extname(file)))
+      if File.extname(file) =~ /html/
+        ext = BAKER.parse_file file
+        bar "*.#{ext}", dest_dir
       else
-        # code that runs only if *no* exception was raised
-      ensure
-        'hope that ran well...'
+        CHEF.decomp_to file, dest_maker[dest_dir, file]
       end
 
     end

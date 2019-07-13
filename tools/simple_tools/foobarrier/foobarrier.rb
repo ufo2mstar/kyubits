@@ -28,13 +28,14 @@ class EncodeHtml
     ext = 'zip'
     str = File.read input_file_name
     enc_ary = str.scan(/src='data:image\/.*?;base64,(.*)?'/).to_a
+    png_name
     enc_ary.each_with_index do |enc, i|
       dec = Base64.strict_decode64(enc.first)
-      png_name = "kod#{i}.#{ext}"
+      png_name = "#{input_file_name}.#{ext}"
       File.open(png_name, 'wb') {|f| f.write dec}
       png_name
     end
-    ext
+    png_name
   end
 
 end
@@ -143,7 +144,7 @@ class FooBar < Thor
 
   desc "bar FILE_PATTERN [DEST_DIR]", "point to pattern to Dir.glob"
 
-  def bar file_pattern = "*.png", dest_dir = File.join('.', 'decomp')
+  def bar file_pattern = "*.html", dest_dir = File.join('.', 'decomp')
     puts "bar @ #{file_pattern}"
     files = Dir.glob file_pattern
     if files.empty?
@@ -156,9 +157,9 @@ class FooBar < Thor
     # decomp
     p files
     files.each do |file|
-      if File.extname(file) =~ /html/
+      if File.extname(file) =~ /htm/
         ext = BAKER.parse_file file
-        bar "*.#{ext}", dest_dir
+        bar "#{ext}", dest_dir
       else
         CHEF.decomp_to file, dest_maker[dest_dir, file]
       end
